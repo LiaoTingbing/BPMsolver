@@ -10,6 +10,7 @@ using namespace arma;
 int main() {
 
     vec AX(1000);
+    vec BX(1000);
 
     cout<<"Ax:"<<endl;
     cout<< AX.size()<<endl;
