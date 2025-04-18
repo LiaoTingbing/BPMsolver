@@ -8,6 +8,7 @@ using namespace Eigen;
 using namespace arma;
 
 int main() {
+
     vec AX(1000);
 
     cout<<"Ax:"<<endl;
