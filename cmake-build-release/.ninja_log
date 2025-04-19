@@ -1,0 +1,11 @@
+# ninja log v6
+6	3462	7667660759162116	CMakeFiles/BPMsolver.dir/main.cpp.obj	c5115e4dba49b8a7
+3463	4233	7667660793721581	BPMsolver.exe	c40b5cc171c18342
+13	5499	7667660287808150	CMakeFiles/BPMsolver.dir/MatrixOperator/dxdx.cpp.obj	d8bb1df7b20a7d4d
+5	3293	7667409981204181	CMakeFiles/BPMsolver.dir/include/Thomas.cpp.obj	fb2da193615cd6ed
+5	3960	7667660635470235	CMakeFiles/BPMsolver.dir/MatrixOperator/dxdy.cpp.obj	a3cfb4808386a992
+14	5279	7667660287818088	CMakeFiles/BPMsolver.dir/MatrixOperator/dydy.cpp.obj	1dda11ca7be8a103
+8	3991	7667706324915788	CMakeFiles/BPMsolver.dir/main.cpp.obj	c5115e4dba49b8a7
+13	4478	7667706324971869	CMakeFiles/BPMsolver.dir/MatrixOperator/dydx.cpp.obj	a993d9eafb8088f4
+11	4654	7667706324951925	CMakeFiles/BPMsolver.dir/MatrixOperator/dxdy.cpp.obj	a3cfb4808386a992
+4655	5555	7667706371390318	BPMsolver.exe	7a85bed4ae97bfa1

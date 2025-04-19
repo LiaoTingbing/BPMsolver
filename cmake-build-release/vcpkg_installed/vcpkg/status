@@ -1,0 +1,116 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 022f63ad2f1fe4fae99d35f5ec4f7078ed38b943ffd43d6b2cccedb281b68942
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 07e9f3b28cc8d315e88e706f6ca765cf11e81cefea3410305dadec48d345e55d
+Status: install ok installed
+
+Package: openblas
+Version: 0.3.29
+Depends: openblas, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 37e4100787e549dea8e924f76b012fc51fbb45d77a56ba6686be82e938199a0c
+Description: OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version.
+Status: install ok installed
+
+Package: blas
+Version: 2023-04-14
+Port-Version: 3
+Depends: openblas, vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 0b2c8a86a74698636b4fc899e8a556f786dde657862d2d76dd4bab649f4a0954
+Description: Metapackage for packages which provide BLAS
+Status: install ok installed
+
+Package: vcpkg-gfortran
+Version: 3
+Port-Version: 3
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 19be2fddaed849ecd6ab4a003543a18f1a67cb59b5bc45524809aa58f7c8ce4c
+Description: Metaport to install gfortran dependencies from msys if VCPKG_USE_EXTERNAL_Fortran is false
+Status: install ok installed
+
+Package: lapack-reference
+Version: 3.12.1
+Depends: vcpkg-cmake, vcpkg-cmake-config, vcpkg-gfortran
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ec860626633db39220fc06eb4a76321a5987d6fb1cb0e6010a03f3f36b4a2060
+Description: LAPACK - Linear Algebra PACKage
+Default-Features: blas-select
+Status: install ok installed
+
+Package: lapack-reference
+Feature: blas-select
+Depends: lapack-reference
+Architecture: x64-windows
+Multi-Arch: same
+Description: Use external optimized BLAS
+Status: install ok installed
+
+Package: lapack-reference
+Feature: noblas
+Depends: blas
+Architecture: x64-windows
+Multi-Arch: same
+Description: Use external optimized BLAS
+Status: install ok installed
+
+Package: lapack
+Version: 2023-06-10
+Port-Version: 2
+Depends: lapack-reference, vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a4b12487e67a5a0e8e9506bdb2e578995e402bec3ed5dbe54599588600eac2bb
+Description: Metapackage for packages which provide LAPACK
+Status: install ok installed
+
+Package: armadillo
+Version: 14.2.2
+Depends: blas, lapack, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 8af308d28c41446d2ce6a2359e0f6cbb2502c5054f751704838f7fc945136695
+Description: Armadillo is a high quality linear algebra library (matrix maths) for the C++ language, aiming towards a good balance between speed and ease of use
+Status: install ok installed
+
+Package: eigen3
+Version: 3.4.0
+Port-Version: 5
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 28ad1ebebe20a101b5393b77b4c5597e4c98f124a0a583962f30b9036e44b852
+Description: C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.
+Status: install ok installed
+
+Package: fmt
+Version: 11.0.2
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 59f333add3e1e68132c694a902281b9fd530a1cb48159278d049c322ed8e0456
+Description: {fmt} is an open-source formatting library providing a fast and safe alternative to C stdio and C++ iostreams.
+Status: install ok installed
+
+Package: nlohmann-json
+Version: 3.12.0
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: fb7be2df71ec7b33b47b8a2d1936390324f7042bdba2f6068fe66247b3fb9d02
+Description: JSON for Modern C++
+Status: install ok installed
+
