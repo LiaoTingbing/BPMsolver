@@ -5,6 +5,8 @@
 #include "include/Thomas.h"
 #include "MatrixOperator/dxdx.h"
 #include "MatrixOperator/dydy.h"
+#include "MatrixOperator/dxdy.h"
+#include "MatrixOperator/dydx.h"
 
 
 int main() {
@@ -19,11 +21,7 @@ int main() {
     vec q(nx*ny , fill::ones);
     vec r(nx*ny , fill::ones);
 
-
-    sp_mat ss = dydy( q,dy,nx,ny);
-    cout<<ss<<endl;
-    // cout<<dxdx(dx,nx,ny)<<endl;
-
+      dxdybase(q,nx,ny)  ;
 
     return 0;
 }

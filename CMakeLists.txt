@@ -13,6 +13,10 @@ add_executable(BPMsolver main.cpp
         MatrixOperator/dxdx.h
         MatrixOperator/dydy.cpp
         MatrixOperator/dydy.h
+        MatrixOperator/dxdy.cpp
+        MatrixOperator/dxdy.h
+        MatrixOperator/dydx.cpp
+        MatrixOperator/dydx.h
 )
 
 target_link_libraries(BPMsolver PRIVATE armadillo)
