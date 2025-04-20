@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(Eigen3 CONFIG REQUIRED)
 find_package(Armadillo CONFIG REQUIRED)
 find_package(hdf5 CONFIG REQUIRED)
+find_package(superlu CONFIG REQUIRED)
 
 
 add_executable(BPMsolver main.cpp
@@ -35,8 +36,11 @@ add_executable(BPMsolver main.cpp
         sim/BPM.cpp
         sim/BPM.h
         MatrixOperator/matrixHeader.h
+        sim/bpmOneSetp.cpp
+        sim/bpmOneSetp.h
 )
 
 target_link_libraries(BPMsolver PRIVATE armadillo)
 target_link_libraries(BPMsolver PRIVATE Eigen3::Eigen)
 target_link_libraries(BPMsolver PRIVATE hdf5::hdf5-shared hdf5::hdf5_hl-shared)
+target_link_libraries(BPMsolver PRIVATE superlu::superlu)

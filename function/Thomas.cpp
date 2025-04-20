@@ -1,4 +1,7 @@
-#pragma once
+
+
+
+
 #include "Thomas.h"
 
 // Thomas算法函数

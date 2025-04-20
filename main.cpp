@@ -1,7 +1,5 @@
 
-// #pragma once
-#pragma once
-// #include "function/commom.h"
+#include "function/commom.h"
 #include "function/loadHDF5.h"
 // #include "MatrixOperator/test.h"
 #include "sim/BPM.h"
@@ -20,6 +18,12 @@ int main() {
 
     BPM bpm(&dev);
     bpm.init();
+    bpm.propagate();
+
+
+
+    // test();
+
 
 
     return 0;

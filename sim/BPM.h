@@ -10,14 +10,18 @@
 #include <string>
 #include "../function/commom.h"
 #include "../MatrixOperator/matrixHeader.h"
+#include "bpmOneSetp.h"
 
 class BPM {
     std::map<std::string, cube> *dev;
 
-    vec x,y,z;
-    vec Exin,Eyin;
-    double lambda,neff,dx,dy,dz,k0;
-    int nx , ny , nz;
+    vec x, y, z;
+    cx_vec Exin, Eyin;
+    double lambda, n0, dx, dy, dz, k0;
+    int nx, ny, nz;
+
+    double alpha = 0.5;
+    cx_vec Et;
 
 public:
     BPM(map<string, cube> *dev_);
@@ -27,7 +31,8 @@ public:
     ~BPM();
 
     void init();
-    void propagate();
+
+    void propagate() ;
 };
 
 

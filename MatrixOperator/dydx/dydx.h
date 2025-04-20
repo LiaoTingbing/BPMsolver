@@ -5,8 +5,6 @@
 #ifndef DYDX_H
 #define DYDX_H
 
-#endif //DYDX_H
-#pragma once
 #include "dydxbase.h"
 
 inline sp_mat dydx(vec &p,
@@ -20,3 +18,7 @@ inline sp_mat dydx(vec &p,
     R.diag(0) = r;
     return P * dydxbase(q, nx, ny, dx, dy) * R;
 }
+
+
+#endif //DYDX_H
+

@@ -5,7 +5,6 @@
 #ifndef TEST_H
 #define TEST_H
 
-#endif //TEST_H
 #include  "dxdy/dxdybase.h"
 #include "dydx/dydxbase.h"
 #include "dxdx/dxdxbase.h"
@@ -25,3 +24,5 @@ inline  void test() {
     ss.print();
 
 }
+
+#endif //TEST_H

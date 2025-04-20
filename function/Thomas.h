@@ -6,9 +6,12 @@
 #ifndef THOMAS_H
 #define THOMAS_H
 
-#endif //THOMAS_H
-#pragma once
+
 #include "commom.h"
 
 vec thomas(const vec& a, const vec& b, const vec& c, const vec& d) ;
+
+
+#endif //THOMAS_H
+
 

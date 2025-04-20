@@ -5,10 +5,6 @@
 #ifndef DXDY_H
 #define DXDY_H
 
-
-#endif //DXDY_H
-
-#pragma once
 #include "dxdybase.h"
 
 inline sp_mat dxdy(vec &p,
@@ -22,3 +18,7 @@ inline sp_mat dxdy(vec &p,
     R.diag(0) = r;
     return P * dxdybase(q, nx, ny, dx, dy) * R;
 }
+
+
+#endif //DXDY_H
+

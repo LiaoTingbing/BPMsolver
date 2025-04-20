@@ -5,8 +5,6 @@
 #ifndef DYDY_H
 #define DYDY_H
 
-#endif //DYDY_H
-
 #include "dydybase.h"
 
 inline sp_mat dydy(vec &p,
@@ -20,3 +18,7 @@ inline sp_mat dydy(vec &p,
     R.diag(0) = r;
     return P * dydybase(q, nx, ny, dx, dy) * R;
 }
+
+
+#endif //DYDY_H
+
