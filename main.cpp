@@ -7,21 +7,12 @@
 #include "MatrixOperator/dydy.h"
 #include "MatrixOperator/dxdy.h"
 #include "MatrixOperator/dydx.h"
-
+#include "MatrixOperator/test.h"
 
 int main() {
 
 
-    double dx=0.004;
-    double dy=0.004;
-
-    int nx=4;
-    int ny = 4;
-
-    vec q(nx*ny , fill::ones);
-    vec r(nx*ny , fill::ones);
-
-      dxdybase(q,nx,ny)  ;
+    testdxdybase();
 
     return 0;
 }
