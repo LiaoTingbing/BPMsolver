@@ -11,6 +11,8 @@
 #include "../sim/Device.h"
 
 
-map<string,cube> loadData(string filepath, field<string> &s) ;
+void loadData(map<string, cube> &device,
+              string filepath,
+              field<string> &s);
 
 

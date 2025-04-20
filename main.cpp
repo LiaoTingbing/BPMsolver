@@ -14,7 +14,8 @@ int main() {
         "index_x","index_y","index_z",
     "Exin","Eyin"};
 
-    map<string,cube> dev= loadData( filePath ,  s) ;
+    map<string,cube> dev;
+    loadData( dev,filePath ,  s) ;
 
 
 
