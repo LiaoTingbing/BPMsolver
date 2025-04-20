@@ -9,15 +9,17 @@ add_executable(BPMsolver main.cpp
         include/commom.h
         include/Thomas.cpp
         include/Thomas.h
-        MatrixOperator/dxdx.cpp
-        MatrixOperator/dxdx.h
-        MatrixOperator/dydy.cpp
-        MatrixOperator/dydy.h
-        MatrixOperator/dxdy.cpp
-        MatrixOperator/dxdy.h
-        MatrixOperator/dydx.cpp
-        MatrixOperator/dydx.h
+        MatrixOperator/dxdx/dxdxbase.cpp
+        MatrixOperator/dxdx/dxdxbase.h
+        MatrixOperator/dydy/dydybase.cpp
+        MatrixOperator/dydy/dydybase.h
+        MatrixOperator/dxdy/dxdybase.cpp
+        MatrixOperator/dxdy/dxdybase.h
+        MatrixOperator/dydx/dydxbase.cpp
+        MatrixOperator/dydx/dydxbase.h
         MatrixOperator/test.h
+        MatrixOperator/dxdx/dxdx.cpp
+        MatrixOperator/dxdx/dxdx.h
 )
 
 target_link_libraries(BPMsolver PRIVATE armadillo)

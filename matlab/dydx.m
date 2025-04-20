@@ -3,7 +3,7 @@
 
 clear ;
 
-nx = 3;
+nx =3;
 ny = 3 ;
 ng = nx * ny ;
 q =  (1:ng)';
@@ -32,59 +32,57 @@ for i = 1:ng
     % 左下角
     if i==1
         d(i) = iq(point3);
-        % c(i) = q(point3);
-        % b(i) = q(point7);
-        % a(i) = q(point7);
-     
+        % c(i) = iq(point3);
+        % b(i) = iq(point7);
+        % a(i) = iq(point7);
     % 下边
     elseif i>1 && i<nx
         d(i) = iq(point3);
         c(i) = iq(point3);
-        % b(i) = q(point7);
-        % a(i) = q(point7);
-        
+        % b(i) = iq(point7);
+        % a(i) = iq(point7);
     % 右下角
     elseif i==nx
-        % d(i) = q(point3);
+        % d(i) = iq(point3);
         c(i) = iq(point3);
-        % b(i) = q(point7);
-        % a(i) = q(point7);
+        % b(i) = iq(point7);
+        % a(i) = iq(point7);
         
     % 左边
     elseif mod(i,nx)==1 && i>nx && i< ng-nx+1
         d(i) = iq(point3);
-        % c(i) = q(point3);
+        % c(i) = iq(point3);
         b(i) = iq(point7);
-        % a(i) = q(point7);
+        % a(i) = iq(point7);
     % 右边
     elseif mod(i,nx)==0 && i>nx && i< ng
-        % d(i) = q(point3);
+        % d(i) = iq(point3);
         c(i) = iq(point3);
-        % b(i) = q(point7);
+        % b(i) = iq(point7);
         a(i) = iq(point7);
     %左上角
 elseif i==ng-nx+1
-        % d(i) = q(point3);
-        % c(i) = q(point3);
+        % d(i) = iq(point3);
+        % c(i) = iq(point3);
         b(i) = iq(point7);
-        % a(i) = q(point7);
+        % a(i) = iq(point7);
     % 上边
     elseif i>ng-nx+1 && i < ng
-        % d(i) = q(point3);
-        % c(i) = q(point3);
+        % d(i) = iq(point3);
+        % c(i) = iq(point3);
         b(i) = iq(point7);
         a(i) = iq(point7);
     % 右上
     elseif i==ng
-        % d(i) = q(point3);
-        % c(i) = q(point3);
-        % b(i) = q(point7);
+        % d(i) = iq(point3);
+        % c(i) = iq(point3);
+        % b(i) = iq(point7);
         a(i) = iq(point7);
     else 
-        d(i) = iq(point2);
-        c(i) = iq(point4);
-        b(i) = iq(point8);
-        a(i) = iq(point6);
+        d(i) = iq(point3);
+        c(i) = iq(point3);
+        b(i) = iq(point7);
+        a(i) = iq(point7);
     end
 
 end
@@ -96,5 +94,5 @@ nl = ng - (nx-1);
 s =diag(a(end-ns+1:end) , -(nx+1)) - diag(b(end-nl+1:end),-(nx-1)) ...
 - diag(c(1:nl),nx-1) + diag(d(1:ns),nx+1);
 
-
+s = s/4;
 spy(s)

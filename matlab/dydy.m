@@ -1,8 +1,8 @@
 
 clear;
 
-nx = 10;
-ny = 10 ;
+nx = 3;
+ny = 3 ;
 ng = nx * ny ;
 q = (1:ng)';
 
@@ -31,6 +31,9 @@ for i = 1:ng
         a(i) =1/(  q(m1) + q(m2) );
     end
 end
-s =diag(a(nx+1:end) , -nx) + diag(b,0) ...
+s =diag(a(nx+1:end) , -nx) - diag(b,0) ...
     + diag(c(1:end-nx),nx);
+
+s = s * 2 ;
+
 spy(s)

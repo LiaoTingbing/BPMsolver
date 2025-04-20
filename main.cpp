@@ -8,7 +8,8 @@
 int main() {
 
 
-    testdxdybase();
+    test();
+
 
     return 0;
 }

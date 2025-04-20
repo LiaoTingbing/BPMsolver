@@ -27,65 +27,64 @@ for i = 1:ng
 
     % 左下角
     if i==1
-        d(i) = iq(point2);
-        % c(i) = q(point4);
-        % b(i) = q(point8);
-        % a(i) = q(point6);
+        d(i) = iq(point1);
+        % c(i) = iq(point5);
+        % b(i) = iq(point1);
+        % a(i) = iq(point5);
      
     % 下边
     elseif i>1 && i<nx
-        d(i) = iq(point2);
-        c(i) = iq(point4);
-        % b(i) = q(point8);
-        % a(i) = q(point6);
-        
+        d(i) = iq(point1);
+        c(i) = iq(point5);
+        % b(i) = iq(point1);
+        % a(i) = iq(point5);
     % 右下角
     elseif i==nx
-        % d(i) = q(point2);
-        c(i) = iq(point4);
-        % b(i) = q(point8);
-        % a(i) = q(point6);
+        % d(i) = iq(point1);
+        c(i) = iq(point5);
+        % b(i) = iq(point1);
+        % a(i) = iq(point5);
         
     % 左边
     elseif mod(i,nx)==1 && i>nx && i< ng-nx+1
-        d(i) = iq(point2);
-        % c(i) = q(point4);
-        b(i) = iq(point8);
-        % a(i) = q(point6);
+        d(i) = iq(point1);
+        % c(i) = iq(point5);
+        b(i) = iq(point1);
+        % a(i) = iq(point5);
          
     % 右边
     elseif mod(i,nx)==0 && i>nx && i< ng
-        % d(i) = q(point2);
-        c(i) = iq(point4);
-        % b(i) = q(point8);
-        a(i) = iq(point6);
+        % d(i) = iq(point1);
+        c(i) = iq(point5);
+        % b(i) = iq(point1);
+        a(i) = iq(point5);
     
     %左上角
 elseif i==ng-nx+1
-        % d(i) = q(point2);
-        % c(i) = q(point4);
-        b(i) = iq(point8);
-        % a(i) = q(point6);
+        % d(i) = iq(point1);
+        % c(i) = iq(point5);
+        b(i) = iq(point1);
+        % a(i) = iq(point5);
         
     % 上边
     elseif i>ng-nx+1 && i < ng
-        % d(i) = q(point2);
-        % c(i) = q(point4);
-        b(i) = iq(point8);
-        a(i) = iq(point6);
+        % d(i) = iq(point1);
+        % c(i) = iq(point5);
+        b(i) = iq(point1);
+        a(i) = iq(point5);
     
     % 右上
     elseif i==ng
-        % d(i) = q(point2);
-        % c(i) = q(point4);
-        % b(i) = q(point8);
-        a(i) = iq(point6);
+        % d(i) = iq(point1);
+        % c(i) = iq(point5);
+        % b(i) = iq(point1);
+        a(i) = iq(point5);
 
     else 
-        d(i) = iq(point2);
-        c(i) = iq(point4);
-        b(i) = iq(point8);
-        a(i) = iq(point6);
+        d(i) = iq(point1);
+        c(i) = iq(point5);
+        b(i) = iq(point1);
+        a(i) = iq(point5);
     end
 
 end
