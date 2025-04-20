@@ -5,13 +5,14 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-
-
-class Device {
-
-
-};
-
-
-
 #endif //DEVICE_H
+
+#include "../function/commom.h"
+
+struct Device {
+    vec x,y,z,lambda;
+
+    mat Exin,Eyin;
+
+    vector<mat> Index;
+};
