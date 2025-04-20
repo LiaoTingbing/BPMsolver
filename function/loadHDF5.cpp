@@ -4,7 +4,9 @@
 
 #include "loadHDF5.h"
 
-void loadData(map<string, cube> &device, string filepath, field<string> &s) {
+void loadData(map<string, cube> &device,
+              string filepath,
+              field<string> &s) {
     // map<string,cube> device;
     // device["z"]=aload()
     cube tmp;
