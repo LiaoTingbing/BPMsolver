@@ -7,11 +7,10 @@
 
 int main() {
 
-    string filePath = "lumerical/testfile.h5";
+    string filePath = "../lumerical/testfile.h5";
 
-    vec x;
-    x.load(hdf5_name(filePath,"x"));
-    x.print();
+
+
 
     // test();
 

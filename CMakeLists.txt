@@ -30,6 +30,10 @@ add_executable(BPMsolver main.cpp
         MatrixOperator/dydx/dydx.h
         MatrixOperator/dydy/dydy.cpp
         MatrixOperator/dydy/dydy.h
+        function/loadHDF5.cpp
+        function/loadHDF5.h
+        sim/Device.cpp
+        sim/Device.h
 )
 
 target_link_libraries(BPMsolver PRIVATE armadillo)
