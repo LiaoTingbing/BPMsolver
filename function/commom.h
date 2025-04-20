@@ -7,6 +7,9 @@
 
 #endif //COMMOM_H
 
+// #include <hdf5.h>
+#define ARMA_USE_HDF5
+
 #include <armadillo>
 #include <cstring>
 #include <iostream>

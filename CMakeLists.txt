@@ -2,9 +2,13 @@ cmake_minimum_required(VERSION 3.30)
 project(BPMsolver)
 
 set(CMAKE_CXX_STANDARD 20)
+#set(CMAKE_CXX_FLAGS "-lhdf5")
 
 find_package(Eigen3 CONFIG REQUIRED)
 find_package(Armadillo CONFIG REQUIRED)
+find_package(hdf5 CONFIG REQUIRED)
+
+
 add_executable(BPMsolver main.cpp
         function/commom.h
         function/Thomas.cpp
@@ -30,3 +34,4 @@ add_executable(BPMsolver main.cpp
 
 target_link_libraries(BPMsolver PRIVATE armadillo)
 target_link_libraries(BPMsolver PRIVATE Eigen3::Eigen)
+target_link_libraries(BPMsolver PRIVATE hdf5::hdf5-shared hdf5::hdf5_hl-shared)
