@@ -6,7 +6,7 @@
 #define TEST_H
 
 #endif //TEST_H
-
+#include "dxdy.h"
 
 void testdxdybase() {
     // double dx=0.004;
