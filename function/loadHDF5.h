@@ -8,7 +8,7 @@
 #endif //LOADHDF5_H
 
 #include "commom.h"
-#include "../sim/Device.h"
+
 
 
 void loadData(map<string, cube> &device,
