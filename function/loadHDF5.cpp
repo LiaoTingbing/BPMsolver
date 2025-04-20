@@ -17,5 +17,6 @@ map<string,cube> loadData(string filepath, field<string> &s) {
         device[s(i)] = tmp;
         // tmp.print();
     }
+
     return  device;
 }
