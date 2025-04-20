@@ -10,8 +10,3 @@
 #include "../include/commom.h"
 
 
-sp_mat dydy( double dy ,int nx ,int ny );
-
-// p 1/q r
-sp_mat dydy( vec & q , double dy ,int nx ,int ny );
-

@@ -12,6 +12,6 @@
 #include "../include/commom.h"
 
 
-sp_mat dxdybase(vec & q , int nx ,int ny);
 
-sp_mat dxdy( vec & q , vec & r ,double dx , double dy , int nx , int ny );
+
+sp_mat dxdybase(vec & q , int nx ,int ny,double dx = 1 , double dy = 1 );
