@@ -6,7 +6,7 @@
 #define DYDX_H
 
 #endif //DYDX_H
-
+#pragma once
 #include "dydxbase.h"
 
 inline sp_mat dydx(vec &p,

@@ -7,6 +7,8 @@
 
 
 #endif //DXDY_H
+
+#pragma once
 #include "dxdybase.h"
 
 inline sp_mat dxdy(vec &p,

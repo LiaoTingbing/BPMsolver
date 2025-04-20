@@ -1,10 +1,10 @@
 //
 // Created by ltb on 25-4-20.
 //
-
+#pragma once
 #include "loadHDF5.h"
 
-void loadData(map<string, cube> &device,
+void loadData(map<string, cube> &dev,
               string filepath,
               field<string> &s) {
     // map<string,cube> device;
@@ -15,7 +15,7 @@ void loadData(map<string, cube> &device,
         cout << s(i) << endl;
         tmp.load(hdf5_name(filepath, s(i)));
         cout << tmp.n_rows << " " << tmp.n_cols << " " << tmp.n_slices << endl;
-        device[s(i)] = tmp;
+        dev[s(i)] = tmp;
         // tmp.print();
     }
 }

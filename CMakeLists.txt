@@ -34,6 +34,7 @@ add_executable(BPMsolver main.cpp
         function/loadHDF5.h
         sim/BPM.cpp
         sim/BPM.h
+        MatrixOperator/matrixHeader.h
 )
 
 target_link_libraries(BPMsolver PRIVATE armadillo)

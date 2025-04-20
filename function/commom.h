@@ -1,7 +1,7 @@
 //
 // Created by ltb on 25-4-19.
 //
-#pragma once
+
 #ifndef COMMOM_H
 #define COMMOM_H
 
@@ -9,7 +9,7 @@
 
 // #include <hdf5.h>
 #define ARMA_USE_HDF5
-
+#pragma once
 #include <armadillo>
 #include <cstring>
 #include <iostream>

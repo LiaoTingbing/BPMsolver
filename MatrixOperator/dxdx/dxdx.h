@@ -7,6 +7,7 @@
 
 #endif //DXDX_H
 
+#pragma once
 #include "dxdxbase.h"
 
 
