@@ -6,9 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(Eigen3 CONFIG REQUIRED)
 find_package(Armadillo CONFIG REQUIRED)
 add_executable(BPMsolver main.cpp
-        include/commom.h
-        include/Thomas.cpp
-        include/Thomas.h
+        function/commom.h
+        function/Thomas.cpp
+        function/Thomas.h
         MatrixOperator/dxdx/dxdxbase.cpp
         MatrixOperator/dxdx/dxdxbase.h
         MatrixOperator/dydy/dydybase.cpp
@@ -20,6 +20,12 @@ add_executable(BPMsolver main.cpp
         MatrixOperator/test.h
         MatrixOperator/dxdx/dxdx.cpp
         MatrixOperator/dxdx/dxdx.h
+        MatrixOperator/dxdy/dxdy.cpp
+        MatrixOperator/dxdy/dxdy.h
+        MatrixOperator/dydx/dydx.cpp
+        MatrixOperator/dydx/dydx.h
+        MatrixOperator/dydy/dydy.cpp
+        MatrixOperator/dydy/dydy.h
 )
 
 target_link_libraries(BPMsolver PRIVATE armadillo)

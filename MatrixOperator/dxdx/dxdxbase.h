@@ -9,7 +9,7 @@
 
 
 #pragma once
-#include "../../include/commom.h"
+#include "../../function/commom.h"
 
 
 sp_mat dxdxbase(vec &  q ,  int nx , int ny , double dx=1 ,  double dy=1);
