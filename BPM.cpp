@@ -31,7 +31,7 @@ void BPM::init()
 
 	Ein = join_cols(vectorise((*dev)["Exin"]), vectorise((*dev)["Eyin"]));
 
-	Eout.set_size( 2* nt , nz );
+	Eout.set_size(2 * nt, nz);
 }
 
 sp_mat BPM::Calculate_P(int i)
@@ -47,13 +47,15 @@ sp_mat BPM::Calculate_P(int i)
 
 	vec ERX, ERY, ERZ, ERXY(nt), ERYX(nt);  // 如各向异性对ERXY，ERYX赋值
 
-	ERX =pow( vectorise((*dev)["index_x"].slice(i)) , 2.0);
-	ERY =pow( vectorise((*dev)["index_y"].slice(i)) ,2);
-	ERZ =pow( vectorise((*dev)["index_z"].slice(i)) ,2 );
+	// 折射率向量化
+	ERX = pow(vectorise((*dev)["index_x"].slice(i)), 2.0)*eps0;
+	ERY = pow(vectorise((*dev)["index_y"].slice(i)), 2.0)*eps0;
+	ERZ = pow(vectorise((*dev)["index_z"].slice(i)), 2.0)*eps0;
 
+	// 计算P矩阵
 	sp_mat Pxx = dxdx(Iv, ERZ, ERX, nx, ny, dx, dy)
 		+ dydy(Iv, Iv, Iv, nx, ny, dx, dy)
-		+  spdiags(k0 * k0 * (ERX / eps0 - n0 * n0), ivec{ 0 }, nt, nt);
+		+ spdiags(k0 * k0 * (ERX / eps0 - n0 * n0), ivec{ 0 }, nt, nt);
 
 	sp_mat Pyy = dxdx(Iv, Iv, Iv, nx, ny, dx, dy)
 		+ dydy(Iv, ERZ, ERY, nx, ny, dx, dy)
@@ -88,14 +90,14 @@ void BPM::propagate()
 
 	for (int i = 0; i < nz - 1; i++) {
 
-		cout << "传输\t:\t" << i+1 <<"~"<<i+2 << "层" << endl;
-		
+		cout << "传输\t:\t" << i + 1 << "~" << i + 2 << "层" << endl;
+
 		P2 = Calculate_P(i + 1);
 
 		// solve CN 差分 2in0k0/dz[ u2 - u1] = alpha*P2*u2 + (1 - alpha)*p1*u1
 		Eout.col(i + 1) = spsolve(II - alpha * P2, (II + (1 - alpha) * P1) * Eout.col(i));
 
-		P1 = P2; 
+		P1 = P2;
 		//Eout(i + 1).print();
 	}
 }
@@ -125,7 +127,7 @@ void BPM::postData()
 	(*dev)["y"].save(hdf5_name(filePath, "y", hdf5_opts::append));
 	(*dev)["z"].save(hdf5_name(filePath, "z", hdf5_opts::append));
 
-	(*dev)["index_x"].slice(nz-5).save(hdf5_name(filePath, "index_x", hdf5_opts::append));
+	(*dev)["index_x"].slice(nz - 5).save(hdf5_name(filePath, "index_x", hdf5_opts::append));
 
 
 }
