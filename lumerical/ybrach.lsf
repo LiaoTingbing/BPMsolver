@@ -1,0 +1,43 @@
+clear ; 
+
+
+h5file = "testfile.h5";
+
+#delete(h5file);
+
+#run;
+#emepropagate;
+
+in = getresult("source","mode profile");
+Ein = in.E;
+
+Exin =pinch(  (Ein(:,:,:,:,1)));
+Eyin = pinch(pinch (Ein(:,:,:,:,2)) );
+ 
+index = getresult("monitor" , "index");
+#lambda = index.lambda;
+
+index_x = pinch (index.index_x ) ; 
+index_y = pinch(index.index_y );
+index_z = pinch(index.index_z );
+
+x = index.x;
+y = index.y;
+z = index.z;
+
+s= getresult("source","neff");
+neff = real(s.neff);
+lambda = s.lambda;
+
+h5write(h5file , "x" , x ,"overwrite"  );
+h5write(h5file , "y" , y );
+h5write(h5file , "z" , z );
+h5write(h5file , "lambda" , lambda );
+h5write(h5file , "neff" , neff );
+
+h5write(h5file , "Exin" , real(Exin) );
+h5write(h5file , "Eyin" , real(Eyin) );
+
+h5write(h5file , "index_x" ,  (real(index_x ) ));
+h5write(h5file , "index_y" ,  (real(index_y)  ));
+h5write(h5file , "index_z" ,  (real(index_z ) ));
