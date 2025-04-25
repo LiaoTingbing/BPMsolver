@@ -15,7 +15,7 @@ lumerical/
 
 .vs/
 bpm/
-doc/
+/doc/*.pptx
  
 matlab/
 output/
