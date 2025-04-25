@@ -9,13 +9,14 @@
 /doc/函数设计.pptx
 /lumerical/rsoft.h5
 /output/bpmOut.h5
+lumerical/
 
 *.h5
 
 .vs/
 bpm/
 doc/
-lumerica/
+ 
 matlab/
 output/
 rsoft/
