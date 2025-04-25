@@ -91,30 +91,30 @@ void BPM::compute_Matrix()
 
 
 		dxdxfunc(isx, sx % erz, erx, nx, ny, dx, dy, Ax_V(i));
-		Ax_V(i).arr.col(1) += 0.5 * k0 * k0 * (erx - n0 * n0);
+		Ax_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (erx - n0 * n0);
 
 		dydyfunc(isy, sy, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, Ay_V(i));
-		Ay_V(i).arr.col(1) += 0.5 * k0 * k0 * (erx - n0 * n0);
+		Ay_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (erx - n0 * n0);
 
 		dxdxfunc(isx, sx, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, Bx_V(i));
-		Bx_V(i).arr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
+		Bx_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
 
 		dydyfunc(isy, sy % erz, ery, nx, ny, dx, dy, By_V(i));
-		By_V(i).arr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
+		By_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
 
 		DiagVector C1, C2;
 		dxdyfunc(isx, sy % erz, ery, nx, ny, dx, dy, C1);
 		dxdyfunc(isx, sy, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, C2);
-		C_V(i).arr = C1.arr - C2.arr;
-		C_V(i).arr.col(2) = erxy * k0 * k0;
-		C_V(i).pos = C1.pos;
+		C_V(i).diagArr = C1.diagArr - C2.diagArr;
+		C_V(i).diagArr.col(2) = erxy * k0 * k0;
+		C_V(i).diagIndex = C1.diagIndex;
 
 		DiagVector C3, C4;
 		dydxfunc(isy, sx % erz, erx, nx, ny, dx, dy, C3);
 		dydxfunc(isy, sx, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, C4);
-		D_V(i).arr = C3.arr - C4.arr;
-		D_V(i).arr.col(2) = erxy * k0 * k0;
-		D_V(i).pos = C3.pos;
+		D_V(i).diagArr = C3.diagArr - C4.diagArr;
+		D_V(i).diagArr.col(2) = erxy * k0 * k0;
+		D_V(i).diagIndex = C3.diagIndex;
 
 		// d b c a排序的
 	}
@@ -161,44 +161,44 @@ void BPM::FullVector_propagate()
 
 		cout << "\t第" << i + 1 << "/" << nz - 1 << "层";
 		// CN差分1.1
-		cx_vec d = spdiags(join_rows(a_*Ay_V(i).arr.col(0) ,	 1 + a_ * Ay_V(i).arr.col(1), a_ * Ay_V(i).arr.col(2)),
-			Ay_V(i).pos, nt, nt).st() * Ex.col(i);
-		cx_vec c = b_*Ay_V(i + 1).arr.col(0);
-		cx_vec b = 1.0 + b_ * Ay_V(i + 1).arr.col(1); //对角
-		cx_vec a = b_*Ay_V(i + 1).arr.col(2);
+		cx_vec d = spdiags(join_rows(a_*Ay_V(i).diagArr.col(0) ,	 1 + a_ * Ay_V(i).diagArr.col(1), a_ * Ay_V(i).diagArr.col(2)),
+			Ay_V(i).diagIndex, nt, nt).st() * Ex.col(i);
+		cx_vec c = b_*Ay_V(i + 1).diagArr.col(0);
+		cx_vec b = 1.0 + b_ * Ay_V(i + 1).diagArr.col(1); //对角
+		cx_vec a = b_*Ay_V(i + 1).diagArr.col(2);
 		cx_vec utmp = thomas_algorithm(a, b, c,nx, d);
 
 		//// CN差分1.2
-		d = spdiags(join_rows(a_ * By_V(i).arr.col(0), 1 + a_ * By_V(i).arr.col(1), a_ * By_V(i).arr.col(2)),
-			By_V(i).pos, nt, nt).st() * Ey.col(i)
-		+spdiags( a_*D_V(i).arr, D_V(i).pos, nt, nt).st() * Ex.col(i)
-		- spdiags( b_*D_V(i+1).arr, D_V(i+1).pos, nt, nt).st() * utmp;
-		c = b_* By_V(i + 1).arr.col(0);
-		b = 1.0 + b_ * By_V(i + 1).arr.col(1); //对角
-		a = b_* By_V(i + 1).arr.col(2);
+		d = spdiags(join_rows(a_ * By_V(i).diagArr.col(0), 1 + a_ * By_V(i).diagArr.col(1), a_ * By_V(i).diagArr.col(2)),
+			By_V(i).diagIndex, nt, nt).st() * Ey.col(i)
+		+spdiags( a_*D_V(i).diagArr, D_V(i).diagIndex, nt, nt).st() * Ex.col(i)
+		- spdiags( b_*D_V(i+1).diagArr, D_V(i+1).diagIndex, nt, nt).st() * utmp;
+		c = b_* By_V(i + 1).diagArr.col(0);
+		b = 1.0 + b_ * By_V(i + 1).diagArr.col(1); //对角
+		a = b_* By_V(i + 1).diagArr.col(2);
 		cx_vec vtmp = thomas_algorithm(a, b, c,nx, d);
 
 
 		// CN差分2.1
 		d = spdiags(
-			join_rows(a_ * Bx_V(i).arr.col(0), 1 + a_ * Bx_V(i).arr.col(1), a_ * Bx_V(i).arr.col(2)), Bx_V(i).pos, nt, nt).st() * vtmp;
+			join_rows(a_ * Bx_V(i).diagArr.col(0), 1 + a_ * Bx_V(i).diagArr.col(1), a_ * Bx_V(i).diagArr.col(2)), Bx_V(i).diagIndex, nt, nt).st() * vtmp;
 
-		c = b_ * Bx_V(i + 1).arr.col(0);
-		b = 1.0+b_ * Bx_V(i + 1).arr.col(1);
-		a = b_ * Bx_V(i + 1).arr.col(2);
+		c = b_ * Bx_V(i + 1).diagArr.col(0);
+		b = 1.0+b_ * Bx_V(i + 1).diagArr.col(1);
+		a = b_ * Bx_V(i + 1).diagArr.col(2);
 		
 		Ey.col(i + 1) = thomas_algorithm(a, b, c, d);
 
 	 
 		// CN差分
-		d = spdiags(join_rows(a_ * Ax_V(i).arr.col(0), 1 + a_ * Ax_V(i).arr.col(1), a_ * Ax_V(i).arr.col(2)),
-			Ax_V(i).pos, nt, nt).st()* utmp
-			+ spdiags(a_ * C_V(i).arr, C_V(i).pos, nt, nt).st() * vtmp
-			- spdiags(b_ * C_V(i + 1).arr, C_V(i + 1).pos, nt, nt).st() * Ex.col(i + 1);
+		d = spdiags(join_rows(a_ * Ax_V(i).diagArr.col(0), 1 + a_ * Ax_V(i).diagArr.col(1), a_ * Ax_V(i).diagArr.col(2)),
+			Ax_V(i).diagIndex, nt, nt).st()* utmp
+			+ spdiags(a_ * C_V(i).diagArr, C_V(i).diagIndex, nt, nt).st() * vtmp
+			- spdiags(b_ * C_V(i + 1).diagArr, C_V(i + 1).diagIndex, nt, nt).st() * Ex.col(i + 1);
 
-		c = b_ * Ax_V(i + 1).arr.col(0);
-		b = 1.0 + b_ * Ax_V(i + 1).arr.col(1);
-		a = b_ * Ax_V(i + 1).arr.col(2);
+		c = b_ * Ax_V(i + 1).diagArr.col(0);
+		b = 1.0 + b_ * Ax_V(i + 1).diagArr.col(1);
+		a = b_ * Ax_V(i + 1).diagArr.col(2);
 
 		Ex.col(i + 1) = thomas_algorithm(a, b, c, d);
 

@@ -29,6 +29,6 @@ struct  DiagVector
 	// d c b a ÄæĞò Éú³ÉÏ¡Êè¾ØÕó·½±ã
 	//cx_mat  D;
 	//cx_vec a, b, c, d,center;
-	cx_mat arr;
-	ivec pos;
+	cx_mat diagArr;
+	ivec diagIndex;
 };
