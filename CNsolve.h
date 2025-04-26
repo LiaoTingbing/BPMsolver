@@ -26,7 +26,7 @@ cx_vec sparseMatrixMultipliedByVector(DiagStruct & A ,cx_vec & u);
 
 
 // 计算稀疏矩阵与向量的乘积 （1+aA)*u
-cx_vec sparseMatrixMultipliedByVector(double a , DiagStruct& A, cx_vec& u);
+cx_vec sparseMatrixMultipliedByVector(cx_double a , const DiagStruct& A, const cx_vec& u);
 
 // 计算	1+a*A     返回稀疏矩阵
-DiagStruct coefficientSparseMatrix(double a , DiagStruct& A);
+DiagStruct coefficientSparseMatrix(cx_double a , const DiagStruct& A);

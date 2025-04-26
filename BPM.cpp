@@ -161,8 +161,7 @@ void BPM::FullVector_propagate()
 		cout.flush();
 		cout << "\r\t" << i + 1 << "/" << nz - 1<<"层";
 		// CN差分1.1
-		cx_vec d = spdiags(join_rows(a_*Ay_V(i).diagArr.col(0) ,	 1 + a_ * Ay_V(i).diagArr.col(1), a_ * Ay_V(i).diagArr.col(2)),
-			Ay_V(i).diagIndex, nt, nt).st() * Ex.col(i);
+		cx_vec d = sparseMatrixMultipliedByVector(a_,Ay_V(i),Ex.col(i));
 		cx_vec c = b_*Ay_V(i + 1).diagArr.col(0);
 		cx_vec b = 1.0 + b_ * Ay_V(i + 1).diagArr.col(1); //对角
 		cx_vec a = b_*Ay_V(i + 1).diagArr.col(2);
@@ -190,7 +189,7 @@ void BPM::FullVector_propagate()
 		Ey.col(i + 1) = thomas_algorithm(a, b, c, d);
 
 	 
-		// CN差分
+		// CN差分2.2
 		d = spdiags(join_rows(a_ * Ax_V(i).diagArr.col(0), 1 + a_ * Ax_V(i).diagArr.col(1), a_ * Ax_V(i).diagArr.col(2)),
 			Ax_V(i).diagIndex, nt, nt).st()* utmp
 			+ spdiags(a_ * C_V(i).diagArr, C_V(i).diagIndex, nt, nt).st() * vtmp

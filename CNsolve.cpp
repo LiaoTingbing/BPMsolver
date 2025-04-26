@@ -16,7 +16,7 @@ cx_vec sparseMatrixMultipliedByVector(DiagStruct& A, cx_vec& u)
         A.diagArr.n_rows, A.diagArr.n_rows).st()* u;
 }
 
-cx_vec sparseMatrixMultipliedByVector(double a, DiagStruct& A, cx_vec& u)
+cx_vec sparseMatrixMultipliedByVector(cx_double a, const DiagStruct& A, const cx_vec& u)
 {
     // 计算稀疏矩阵与向量的乘积 （1+aA)*u
     return spdiags( 
@@ -25,7 +25,7 @@ cx_vec sparseMatrixMultipliedByVector(double a, DiagStruct& A, cx_vec& u)
         A.diagArr.n_rows, A.diagArr.n_rows).st() * u;
 }
 
-DiagStruct coefficientSparseMatrix(double a, DiagStruct& A)
+DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
 {
     return   {
         join_rows(a * A.diagArr.col(0),1 + a * A.diagArr.col(1),a * A.diagArr.col(2)),
