@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "common.h"
 #include "CNsolve.h"
@@ -20,7 +20,7 @@ class BPM
 	double dx, dy, dz;
 	int nx, ny, nz,nt;
 	double lambda, k0, n0;
-	double alpha;              // CN ²î·Ö¿ØÖÆ²ÎÊı
+	double alpha;              // CN å·®åˆ†æ§åˆ¶å‚æ•°
 
 	//field<sp_cx_mat> Ax;
 	//field<sp_cx_mat> Ay;
@@ -47,8 +47,8 @@ class BPM
 	//vec eyin;
  
 
-	//	Ê××ÖÄ¸´óĞ´¾ØÕó
-	//	Ê××ÖÄ¸Ğ¡Ğ´ÁĞÏòÁ¿
+	//	é¦–å­—æ¯å¤§å†™çŸ©é˜µ
+	//	é¦–å­—æ¯å°å†™åˆ—å‘é‡
 	cx_mat Ex;      //  nt*nz
 	cx_mat Ey;		//	nt *nz
 
@@ -68,7 +68,7 @@ public:
 	void init();
 
 
-	void compute_PML();      // ¼ÆËãPML²ÎÊı
+	void compute_PML();      // è®¡ç®—PMLå‚æ•°
 
 	void compute_Matrix();
  
@@ -77,6 +77,9 @@ public:
 	void Qusi_TE_Propagate();
 
 	void FullVector_propagate();
+
+	void FullVector_propagate_simple();
+
 
 	void postData();
 

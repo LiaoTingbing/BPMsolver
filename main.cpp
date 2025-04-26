@@ -21,7 +21,7 @@ int main()
     //omp_set_num_threads(6);
     //test();
 
-    string filePathrosft = "lumerical/rsoft.h5";
+    string filePathrosft = "matlab/rsoft.h5";
 
 
     field<string> rosft = {
@@ -42,13 +42,14 @@ int main()
     bpm.compute_PML();
     bpm.compute_Matrix();
     bpm.FullVector_propagate();
+    //bpm.FullVector_propagate_simple();
     bpm.postData();
     //bpm.getMatrix();
  
     //bpm.Qusi_TM_Propagate();    //  EX
     //bpm.Qusi_TE_Propagate();    //  EY
     //bpm.postData();
-    //bpm.compute_FullVectorMatrix();
+
 
 }
 

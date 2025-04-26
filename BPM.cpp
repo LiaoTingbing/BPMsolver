@@ -26,7 +26,7 @@ void BPM::init()
 	cout << "dy = " << dy << endl;
 	cout << "dz = " << dz << endl;
 	cout << "lambda = " << lambda << endl;
-	cout << "k0 = " << k0 << endl;
+	//cout << "k0 = " << k0 << endl;
 	cout << "n0 = " << n0 << endl;
 	cout << "alpha = " << alpha << endl;
 
@@ -163,24 +163,24 @@ void BPM::FullVector_propagate()
 
 	for (int i = 0; i < nz - 1; i++) {
 		cout.flush();
-		cout << "\r\t" << i + 1 << "/" << nz - 1<<"层";
+		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
 		// CN差分1.1
-		cx_vec d = spdiags(join_rows(a_*Ay_V(i).diagArr.col(0) ,	 1 + a_ * Ay_V(i).diagArr.col(1), a_ * Ay_V(i).diagArr.col(2)),
+		cx_vec d = spdiags(join_rows(a_ * Ay_V(i).diagArr.col(0), 1 + a_ * Ay_V(i).diagArr.col(1), a_ * Ay_V(i).diagArr.col(2)),
 			Ay_V(i).diagIndex, nt, nt).st() * Ex.col(i);
-		cx_vec c = b_*Ay_V(i + 1).diagArr.col(0);
+		cx_vec c = b_ * Ay_V(i + 1).diagArr.col(0);
 		cx_vec b = 1.0 + b_ * Ay_V(i + 1).diagArr.col(1); //对角
-		cx_vec a = b_*Ay_V(i + 1).diagArr.col(2);
-		cx_vec utmp = thomas_algorithm(a, b, c,nx, d);
+		cx_vec a = b_ * Ay_V(i + 1).diagArr.col(2);
+		cx_vec utmp = thomas_algorithm(a, b, c, nx, d);
 
 		//// CN差分1.2
 		d = spdiags(join_rows(a_ * By_V(i).diagArr.col(0), 1 + a_ * By_V(i).diagArr.col(1), a_ * By_V(i).diagArr.col(2)),
 			By_V(i).diagIndex, nt, nt).st() * Ey.col(i)
-		+spdiags( a_*D_V(i).diagArr, D_V(i).diagIndex, nt, nt).st() * Ex.col(i)
-		- spdiags( b_*D_V(i+1).diagArr, D_V(i+1).diagIndex, nt, nt).st() * utmp;
-		c = b_* By_V(i + 1).diagArr.col(0);
+			+ spdiags(a_ * D_V(i).diagArr, D_V(i).diagIndex, nt, nt).st() * Ex.col(i)
+			- spdiags(b_ * D_V(i + 1).diagArr, D_V(i + 1).diagIndex, nt, nt).st() * utmp;
+		c = b_ * By_V(i + 1).diagArr.col(0);
 		b = 1.0 + b_ * By_V(i + 1).diagArr.col(1); //对角
-		a = b_* By_V(i + 1).diagArr.col(2);
-		cx_vec vtmp = thomas_algorithm(a, b, c,nx, d);
+		a = b_ * By_V(i + 1).diagArr.col(2);
+		cx_vec vtmp = thomas_algorithm(a, b, c, nx, d);
 
 
 		// CN差分2.1
@@ -188,15 +188,15 @@ void BPM::FullVector_propagate()
 			join_rows(a_ * Bx_V(i).diagArr.col(0), 1 + a_ * Bx_V(i).diagArr.col(1), a_ * Bx_V(i).diagArr.col(2)), Bx_V(i).diagIndex, nt, nt).st() * vtmp;
 
 		c = b_ * Bx_V(i + 1).diagArr.col(0);
-		b = 1.0+b_ * Bx_V(i + 1).diagArr.col(1);
+		b = 1.0 + b_ * Bx_V(i + 1).diagArr.col(1);
 		a = b_ * Bx_V(i + 1).diagArr.col(2);
-		
+
 		Ey.col(i + 1) = thomas_algorithm(a, b, c, d);
 
-	 
+
 		// CN差分2.2
 		d = spdiags(join_rows(a_ * Ax_V(i).diagArr.col(0), 1 + a_ * Ax_V(i).diagArr.col(1), a_ * Ax_V(i).diagArr.col(2)),
-			Ax_V(i).diagIndex, nt, nt).st()* utmp
+			Ax_V(i).diagIndex, nt, nt).st() * utmp
 			+ spdiags(a_ * C_V(i).diagArr, C_V(i).diagIndex, nt, nt).st() * vtmp
 			- spdiags(b_ * C_V(i + 1).diagArr, C_V(i + 1).diagIndex, nt, nt).st() * Ex.col(i + 1);
 
@@ -205,7 +205,43 @@ void BPM::FullVector_propagate()
 		a = b_ * Ax_V(i + 1).diagArr.col(2);
 
 		Ex.col(i + 1) = thomas_algorithm(a, b, c, d);
-		
+
+	}
+	clock_t t2 = clock();
+	cout << "\t\t\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
+
+}
+
+void BPM::FullVector_propagate_simple()
+{
+
+	cout << "\t全矢量传播\n";
+
+	Ex.col(0) = vectorise((*dev)["Exin"]) + 0.0 * iu;
+	Ey.col(0) = vectorise((*dev)["Eyin"]) + 0.0 * iu;
+
+	cx_double a_ = (1 - alpha) * dz / 2 / 1i / n0 / k0;
+	cx_double b_ = -alpha * dz / 2 / 1i / n0 / k0;
+
+	clock_t t1 = clock();
+
+	for (int i = 0; i < nz - 1; i++) {
+		cout.flush();
+		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
+		cx_vec uout, vout;
+		CNsolve(
+			a_, b_,
+			Ay_V(i), Ay_V(i + 1),
+			By_V(i), By_V(i + 1),
+			Ax_V(i), Ax_V(i + 1),
+			Bx_V(i), Bx_V(i + 1),
+			C_V(i), C_V(i + 1),
+			D_V(i), D_V(i + 1),
+			Ex.col(i), Ey.col(i),
+			uout, vout
+		);
+		Ex.col(i + 1) = uout;
+		Ey.col(i + 1) = vout;
 	}
 	clock_t t2 = clock();
 	cout << "\t\t\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
@@ -226,7 +262,7 @@ void BPM::postData()
 	(*dev)["z"].save(hdf5_name(filePath, "z", hdf5_opts::append));
 
 
-	
+
 	mat Ex_abs = abs(Ex);
 	Ex_abs.save(hdf5_name(filePath, "Ex_abs", hdf5_opts::append));
 	mat Ey_abs = abs(Ey);
