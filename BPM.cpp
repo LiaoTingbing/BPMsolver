@@ -102,14 +102,14 @@ void BPM::compute_Matrix()
 		dydyfunc(isy, sy % erz, ery, nx, ny, dx, dy, By_V(i));
 		By_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
 
-		DiagVector C1, C2;
+		DiagStruct C1, C2;
 		dxdyfunc(isx, sy % erz, ery, nx, ny, dx, dy, C1);
 		dxdyfunc(isx, sy, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, C2);
 		C_V(i).diagArr = C1.diagArr - C2.diagArr;
 		C_V(i).diagArr.col(2) = erxy * k0 * k0;
 		C_V(i).diagIndex = C1.diagIndex;
 
-		DiagVector C3, C4;
+		DiagStruct C3, C4;
 		dydxfunc(isy, sx % erz, erx, nx, ny, dx, dy, C3);
 		dydxfunc(isy, sx, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, C4);
 		D_V(i).diagArr = C3.diagArr - C4.diagArr;
@@ -225,12 +225,17 @@ void BPM::postData()
 	(*dev)["z"].save(hdf5_name(filePath, "z", hdf5_opts::append));
 
 
-	//mat Ex_real = real(Ex);
-	//mat Ex_imag = imag(Ex);
+	
 	mat Ex_abs = abs(Ex);
 	Ex_abs.save(hdf5_name(filePath, "Ex_abs", hdf5_opts::append));
 	mat Ey_abs = abs(Ey);
 	Ey_abs.save(hdf5_name(filePath, "Ey_abs", hdf5_opts::append));
 
+
+	mat Ex_real = real(Ex);
+	Ex_real.save(hdf5_name(filePath, "Ex_real", hdf5_opts::append));
+
+	mat Ey_real = real(Ey);
+	Ey_real.save(hdf5_name(filePath, "Ey_real", hdf5_opts::append));
 
 }

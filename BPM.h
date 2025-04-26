@@ -22,19 +22,19 @@ class BPM
 	double lambda, k0, n0;
 	double alpha;              // CN 差分控制参数
 
-	field<sp_cx_mat> Ax;
-	field<sp_cx_mat> Ay;
-	field<sp_cx_mat> Bx;
-	field<sp_cx_mat> By;
-	field<sp_cx_mat> C;
-	field<sp_cx_mat> D;
+	//field<sp_cx_mat> Ax;
+	//field<sp_cx_mat> Ay;
+	//field<sp_cx_mat> Bx;
+	//field<sp_cx_mat> By;
+	//field<sp_cx_mat> C;
+	//field<sp_cx_mat> D;
 
-	field<DiagVector> Ax_V;
-	field<DiagVector> Ay_V;
-	field<DiagVector> Bx_V;
-	field<DiagVector> By_V;
-	field<DiagVector> C_V;
-	field<DiagVector> D_V;
+	field<DiagStruct> Ax_V;
+	field<DiagStruct> Ay_V;
+	field<DiagStruct> Bx_V;
+	field<DiagStruct> By_V;
+	field<DiagStruct> C_V;
+	field<DiagStruct> D_V;
 
 
 	cx_vec sx,sy,isx,isy;
