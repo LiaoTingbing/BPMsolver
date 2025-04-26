@@ -156,14 +156,15 @@ void BPM::FullVector_propagate_simple()
 	Ex.col(0) = vectorise((*dev)["Exin"]) + 0.0 * iu;
 	Ey.col(0) = vectorise((*dev)["Eyin"]) + 0.0 * iu;
 
-	cx_double a_ = (1 - alpha) * dz / 2 / 1i / n0 / k0;
-	cx_double b_ = -alpha * dz / 2 / 1i / n0 / k0;
-
 	clock_t t1 = clock();
 
 	for (int i = 0; i < nz - 1; i++) {
 		cout.flush();
 		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
+
+		//求解CN差分方程
+		cx_double a_ = (1 - alpha) * dz / 2 / 1i / n0 / k0;
+		cx_double b_ = -alpha * dz / 2 / 1i / n0 / k0;
 		cx_vec uout, vout;
 		CNsolve(
 			a_, b_,
@@ -197,13 +198,10 @@ void BPM::postData()
 	(*dev)["y"].save(hdf5_name(filePath, "y", hdf5_opts::append));
 	(*dev)["z"].save(hdf5_name(filePath, "z", hdf5_opts::append));
 
-
-
 	mat Ex_abs = abs(Ex);
 	Ex_abs.save(hdf5_name(filePath, "Ex_abs", hdf5_opts::append));
 	mat Ey_abs = abs(Ey);
 	Ey_abs.save(hdf5_name(filePath, "Ey_abs", hdf5_opts::append));
-
 
 	mat Ex_real = real(Ex);
 	Ex_real.save(hdf5_name(filePath, "Ex_real", hdf5_opts::append));
