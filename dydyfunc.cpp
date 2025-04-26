@@ -1,4 +1,4 @@
-#include "dydyfunc.h"
+﻿#include "dydyfunc.h"
 
 sp_cx_mat dydyfunc(const cx_vec& p, const  cx_vec& q, const cx_vec& r,
 	int nx, int ny, double dx, double dy)
@@ -38,6 +38,7 @@ sp_cx_mat dydyfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, in
 	diagv.diagArr.col(2) = a * 2 / dy / dy;
 
 	diagv.diagIndex = { -nx,0,nx };
+	diagv.pos = 1;
 
 	//sp_cx_mat s = spdiags(diagv.D,diagv.pos, ng, ng).st();
 	return sp_cx_mat{};

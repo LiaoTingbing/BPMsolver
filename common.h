@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 
@@ -25,7 +25,8 @@ const std::complex<double> iu(0, 1);
 
 struct  DiagStruct
 {
-	// d c b a ÄæĞò Éú³ÉÏ¡Êè¾ØÕó·½±ã
+	// d c b a é€†åº ç”Ÿæˆç¨€ç–çŸ©é˜µæ–¹ä¾¿
 	cx_mat diagArr;
 	ivec diagIndex;
+	int pos;
 };

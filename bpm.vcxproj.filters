@@ -48,6 +48,9 @@
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="bandMulti.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="loadHDF5.h">
@@ -78,6 +81,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="dydxfunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bandMulti.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

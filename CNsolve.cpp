@@ -1,4 +1,4 @@
-#include "CNsolve.h"
+ï»¿#include "CNsolve.h"
 
  
 
@@ -9,27 +9,36 @@ void CNSemiVectorSolve(cx_vec& u2, cx_vec& u1, sp_cx_mat& Ax1, sp_cx_mat& Ay1, s
 	u2 = spsolve(II + b * Ax2, (II + a * Ax1) * utmp);
 }
 
-cx_vec sparseMatrixMultipliedByVector(DiagStruct& A, cx_vec& u)
+cx_vec sparseMatrixMultipliedByVector(DiagStruct& D, cx_vec& u)
 {
-    // ¼ÆËãÏ¡Êè¾ØÕóÓëÏòÁ¿µÄ³Ë»ı A*u
-    return spdiags(A.diagArr, A.diagIndex, 
-        A.diagArr.n_rows, A.diagArr.n_rows).st()* u;
+    // è®¡ç®—ç¨€ç–çŸ©é˜µä¸å‘é‡çš„ä¹˜ç§¯ D*u
+    return fiveMulti(
+        D.diagArr.col(4),//a
+        D.diagArr.col(3),//b
+        D.diagArr.col(2),//c
+        D.diagArr.col(1),//d
+        D.diagArr.col(0),//e
+        D.pos,
+        u);
 }
 
 cx_vec sparseMatrixMultipliedByVector(cx_double a, const DiagStruct& A, const cx_vec& u)
 {
-    // ¼ÆËãÏ¡Êè¾ØÕóÓëÏòÁ¿µÄ³Ë»ı £¨1+aA)*u
-    return spdiags( 
-        join_rows(a*A.diagArr.col(0),1+ a * A.diagArr.col(1), a * A.diagArr.col(2) )
-        , A.diagIndex,
-        A.diagArr.n_rows, A.diagArr.n_rows).st() * u;
+    // è®¡ç®—ç¨€ç–çŸ©é˜µä¸å‘é‡çš„ä¹˜ç§¯ ï¼ˆ1+aA)*u
+    return (
+        a * A.diagArr(2),//a              
+        1.0+a * A.diagArr(1),//b
+        a * A.diagArr(0),//c
+        A.pos,
+        u); 
 }
 
 DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
 {
     return   {
         join_rows(a * A.diagArr.col(0),1 + a * A.diagArr.col(1),a * A.diagArr.col(2)),
-        A.diagIndex
+        A.diagIndex,
+        A.pos
     };
 }
 

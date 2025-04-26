@@ -1,4 +1,4 @@
-#include "dxdxfunc.h"
+﻿#include "dxdxfunc.h"
 
 sp_cx_mat dxdxfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r,
 	int nx, int ny,
@@ -59,6 +59,7 @@ sp_cx_mat dxdxfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, in
 	diagv.diagArr.col(2) = a * 2 / dx / dx;
 
 	diagv.diagIndex = { -1 ,0,1 };
+	diagv.pos = 1;
 
 	//sp_cx_mat s = spdiags(diagv.D,diagv.pos, ng, ng).st();
 	return sp_cx_mat{};

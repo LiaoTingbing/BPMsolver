@@ -108,6 +108,8 @@ void BPM::compute_Matrix()
 		C_V(i).diagArr = C1.diagArr - C2.diagArr;
 		C_V(i).diagArr.col(2) = erxy * k0 * k0;
 		C_V(i).diagIndex = C1.diagIndex;
+		C_V(i).pos = C1.pos;
+
 
 		DiagStruct C3, C4;
 		dydxfunc(isy, sx % erz, erx, nx, ny, dx, dy, C3);
@@ -115,6 +117,8 @@ void BPM::compute_Matrix()
 		D_V(i).diagArr = C3.diagArr - C4.diagArr;
 		D_V(i).diagArr.col(2) = erxy * k0 * k0;
 		D_V(i).diagIndex = C3.diagIndex;
+		D_V(i).pos = C3.pos;
+
 
 		// d b c a排序的
 	}
@@ -161,7 +165,8 @@ void BPM::FullVector_propagate()
 		cout.flush();
 		cout << "\r\t" << i + 1 << "/" << nz - 1<<"层";
 		// CN差分1.1
-		cx_vec d = sparseMatrixMultipliedByVector(a_,Ay_V(i),Ex.col(i));
+		cx_vec d = spdiags(join_rows(a_*Ay_V(i).diagArr.col(0) ,	 1 + a_ * Ay_V(i).diagArr.col(1), a_ * Ay_V(i).diagArr.col(2)),
+			Ay_V(i).diagIndex, nt, nt).st() * Ex.col(i);
 		cx_vec c = b_*Ay_V(i + 1).diagArr.col(0);
 		cx_vec b = 1.0 + b_ * Ay_V(i + 1).diagArr.col(1); //对角
 		cx_vec a = b_*Ay_V(i + 1).diagArr.col(2);

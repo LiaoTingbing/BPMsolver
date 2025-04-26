@@ -1,9 +1,10 @@
-#pragma once
+ï»¿#pragma once
 
 #include "common.h"
+#include "bandMulti.h"
 
 
-//Çó½âÈ«Ê¸Á¿²î·Ö¹«Ê½
+//æ±‚è§£å…¨çŸ¢é‡å·®åˆ†å…¬å¼
 void  CNFullVectorSolve(DiagStruct& Ax, DiagStruct& Ay,
 	DiagStruct& Bx, DiagStruct& By,
 	DiagStruct& C, DiagStruct& D,
@@ -12,7 +13,7 @@ void  CNFullVectorSolve(DiagStruct& Ax, DiagStruct& Ay,
     double a, double b);
 
 
-// Çó½â°ëÊ¸Á¿²î·Ö¹«Ê½
+// æ±‚è§£åŠçŸ¢é‡å·®åˆ†å…¬å¼
 void CNSemiVectorSolve(cx_vec &u2, 
 	cx_vec& u1 ,
 	sp_cx_mat& Ax1, sp_cx_mat& Ay1,
@@ -21,12 +22,15 @@ void CNSemiVectorSolve(cx_vec &u2,
 
 
 
-// ¼ÆËãÏ¡Êè¾ØÕóÓëÏòÁ¿µÄ³Ë»ı A*u
-cx_vec sparseMatrixMultipliedByVector(DiagStruct & A ,cx_vec & u);
+// è®¡ç®—ç¨€ç–çŸ©é˜µä¸å‘é‡çš„ä¹˜ç§¯ D*u
+// Dæ˜¯äº”å¯¹è§’
+cx_vec sparseMatrixMultipliedByVector(DiagStruct & D ,cx_vec & u);
 
 
-// ¼ÆËãÏ¡Êè¾ØÕóÓëÏòÁ¿µÄ³Ë»ı £¨1+aA)*u
+// è®¡ç®—ç¨€ç–çŸ©é˜µä¸å‘é‡çš„ä¹˜ç§¯ ï¼ˆ1+aA)*u
 cx_vec sparseMatrixMultipliedByVector(cx_double a , const DiagStruct& A, const cx_vec& u);
 
-// ¼ÆËã	1+a*A     ·µ»ØÏ¡Êè¾ØÕó
+// è®¡ç®—	1+a*A     è¿”å›ç¨€ç–çŸ©é˜µ
 DiagStruct coefficientSparseMatrix(cx_double a , const DiagStruct& A);
+
+
