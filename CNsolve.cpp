@@ -38,7 +38,7 @@ cx_vec sparseMatrixMultipliedByVector(cx_double a, const DiagStruct& A, const cx
 DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
 {
 	return   {
-		join_rows(a * A.diagArr.col(0),1 + a * A.diagArr.col(1),a * A.diagArr.col(2)),
+		join_rows(a * A.diagArr.col(0),1.0 + a * A.diagArr.col(1),a * A.diagArr.col(2)),
 		A.pos
 	};
 }

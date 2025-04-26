@@ -3,7 +3,7 @@
 cx_vec triMulti(const cx_vec& a, const cx_vec& b, const cx_vec& c, int q, const cx_vec& x)
 {
 	int n = x.n_elem;
-	cx_vec y(n);
+	cx_vec y(n,fill::zeros);
 
 	for (int i = 0; i < q;i++)
 	{
@@ -24,5 +24,5 @@ cx_vec triMulti(const cx_vec& a, const cx_vec& b, const cx_vec& c, int q, const 
 cx_vec fiveMulti(const cx_vec& a, const cx_vec& b, const cx_vec& c, const cx_vec& d, const cx_vec& e, int q, const cx_vec& x)
 {
 	return triMulti(a, c, e, q + 1, x) +
-		triMulti(b, cx_vec(size(c)), d, q - 1, x);
+		triMulti(b, cx_vec(size(c),fill::zeros), d, q - 1, x);
 }

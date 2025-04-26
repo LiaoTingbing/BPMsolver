@@ -2,7 +2,7 @@
 
 void BPM::init()
 {
-	layersPML = 10;
+ 
 	nx = (*dev)["x"].n_elem;
 	ny = (*dev)["y"].n_elem;
 	nz = (*dev)["z"].n_elem;
@@ -30,11 +30,6 @@ void BPM::init()
 	cout << "n0 = " << n0 << endl;
 	cout << "alpha = " << alpha << endl;
 
-	sx = ones(nt) + 0.0 * iu;
-	sy = ones(nt) + 0.0 * iu;
-	isx = 1 / sx;
-	isy = 1 / sy;
-
 	Ex.set_size(nt, nz);
 	Ey.set_size(nt, nz);
 
@@ -42,7 +37,8 @@ void BPM::init()
 
 void BPM::compute_PML()
 {
-	cout << "\t初始化PML参数\n";
+	int layersPML = 10 ;
+	cout << "\t初始化PML参数\tPML层数："<<layersPML<<"\n";
 	cx_mat Sx(nx, ny, fill::ones), Sy(nx, ny, fill::ones);
 	int m = 3;
 	double omega = c0 * k0;
@@ -116,9 +112,7 @@ void BPM::compute_Matrix()
 		D_V(i).diagArr = C3.diagArr - C4.diagArr;
 		D_V(i).diagArr.col(2) = erxy * k0 * k0;
 		D_V(i).pos = C3.pos;
-
-
-		// d b c a排序的
+ 
 	}
 	clock_t t2 = clock();
 	cout << "\t:\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
@@ -193,6 +187,11 @@ void BPM::FullVector_WideAngle_propagate_simple(int order)
 	Ey.col(0) = vectorise((*dev)["Eyin"]) + 0.0 * iu;
 
 	clock_t t1 = clock();
+	cx_vec coffUp = Nn(order) - iu * n0 * k0 * dz * (1 - alpha) * Mn(order);
+	cx_vec coffDown = Nn(order) + iu * n0 * k0 * dz * alpha * Mn(order);
+	cx_vec a = -1.0 / roots(coffUp) / n0 / n0 / k0 / k0;
+	cx_vec b = -1.0 / roots(coffDown) / n0 / n0 / k0 / k0;
+	cx_vec uout, vout, uin, vin;
 
 	// 第i层传播
 	for (int i = 0; i < nz - 1; i++) {
@@ -200,13 +199,6 @@ void BPM::FullVector_WideAngle_propagate_simple(int order)
 		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
 
 		// dz放里面可能不均匀的dz和变化的n0
-		cx_vec coffUp = Nn(order) - iu * n0 * k0 * dz * (1 - alpha) * Mn(order);
-		cx_vec coffDown = Nn(order) + iu * n0 * k0 * dz *  alpha * Mn(order);
-
-		cx_vec a = -1.0 / roots(coffUp)/n0/n0/k0/k0 ;
-		cx_vec b = -1.0 / roots(coffDown) / n0 / n0 / k0 / k0;
-
-		cx_vec uout, vout,uin,vin;
 
 		//广角循环
 		uin = Ex.col(i) ;
@@ -217,12 +209,12 @@ void BPM::FullVector_WideAngle_propagate_simple(int order)
 			//求解CN差分方程
 			CNsolve(
 				a(j), b(j),
-				Ay_V(i), Ay_V(i),
-				By_V(i), By_V(i),
-				Ax_V(i), Ax_V(i),
-				Bx_V(i), Bx_V(i),
-				C_V(i), C_V(i),
-				D_V(i), D_V(i),
+				Ay_V(i), Ay_V(i + 1),
+				By_V(i), By_V(i + 1),
+				Ax_V(i), Ax_V(i + 1),
+				Bx_V(i), Bx_V(i + 1),
+				C_V(i), C_V(i + 1),
+				D_V(i), D_V(i + 1),
 				uin, vin,
 				uout, vout
 			);

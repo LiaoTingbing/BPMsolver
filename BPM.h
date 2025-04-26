@@ -39,7 +39,7 @@ class BPM
 
 	cx_vec sx,sy,isx,isy;
 
-	int layersPML;
+
 
 
  
@@ -83,6 +83,7 @@ public:
 	// Order 2 = 2,2;
 	// Order 3 = 3,3;
 	// Order 4 = 4,4;
+	// Order 5 = 5,5;
 	void FullVector_WideAngle_propagate_simple(int order);
 
 

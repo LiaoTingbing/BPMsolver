@@ -1,23 +1,23 @@
-#include "thomas.h"
+ï»¿#include "thomas.h"
 
 cx_vec thomas_algorithm(const cx_vec& a, const cx_vec& b, const cx_vec& c, const cx_vec& d)
 {
 	int n = d.size();
-	//% a, b, c, d Í¬ÁĞ
+	//% a, b, c, d åŒåˆ—
 	cx_vec  g(n);
-	cx_vec  r(n); //% ´æ·ÅÖĞ¼äd
+	cx_vec  r(n); //% å­˜æ”¾ä¸­é—´d
 
 	g(0) = c(0) / b(0);
 	r(0) = d(0) / b(0);
 
-	//% ÕıÏò
+	//% æ­£å‘
 	for (int i = 1; i < n; i++)
 	{
 		g(i) = c(i) / (b(i) - a(i) * g(i - 1));
 		r(i) = (d(i) - a(i) * r(i - 1)) / (b(i) - a(i) * g(i - 1));
 	}
 
-	//% ·´Ïò
+	//% åå‘
 	cx_vec x(n);
 	x(n - 1) = r(n - 1);
 
@@ -34,14 +34,14 @@ cx_vec thomas_algorithm(const cx_vec& a, const cx_vec& b, const cx_vec& c, int p
 
 	//n = length(d);
 	int n = d.size();
-	//% a, b, c, d Í¬ÁĞ
-	cx_vec	g(n);
-	cx_vec r(n);     //% ´æ·ÅÖĞ¼äd
+	//% a, b, c, d åŒåˆ—
+	cx_vec	g(n,fill::zeros);
+	cx_vec r(n, fill::zeros);     //% å­˜æ”¾ä¸­é—´d
 
 	g.rows(0, p - 1) = c.rows(0, p - 1) / b.rows(0, p - 1);
 	r.rows(0, p - 1) = d.rows(0, p - 1) / b.rows(0, p - 1);
 
-	//% ÕıÏò
+	//% æ­£å‘
 
 	for (int i = p;i < n;i++)
 	{
@@ -50,7 +50,7 @@ cx_vec thomas_algorithm(const cx_vec& a, const cx_vec& b, const cx_vec& c, int p
 	}
 
 
-	//% ·´Ïò
+	//% åå‘
 	cx_vec x(n);
 	x.rows(n - p, n - 1) = r.rows(n - p, n - 1);
 
