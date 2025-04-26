@@ -41,8 +41,8 @@ int main()
     bpm.init();
     bpm.compute_PML();
     bpm.compute_Matrix();
-    bpm.FullVector_propagate();
-    //bpm.FullVector_propagate_simple();
+    //bpm.FullVector_propagate();
+    bpm.FullVector_propagate_simple();
     bpm.postData();
     //bpm.getMatrix();
  
