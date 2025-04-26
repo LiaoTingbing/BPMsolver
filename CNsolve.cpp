@@ -1,15 +1,17 @@
 ﻿#include "CNsolve.h"
 
- 
-
-void CNSemiVectorSolve(cx_vec& u2, cx_vec& u1, sp_cx_mat& Ax1, sp_cx_mat& Ay1, sp_cx_mat& Ax2, sp_cx_mat& Ay2, double a, double b)
+cx_vec thomasSolve(const DiagStruct& A, const cx_vec& y)
 {
-    sp_mat II = speye(size(Ax1));
-    cx_vec utmp = spsolve(II + b * Ay2, (II + b * Ay2)*u1);
-	u2 = spsolve(II + b * Ax2, (II + a * Ax1) * utmp);
+    
+    return thomas_algorithm(
+        A.diagArr.col(2),   //a
+        A.diagArr.col(1),   //b
+        A.diagArr.col(0),   //c
+        A.pos,              // 对角位置
+        y);
 }
 
-cx_vec sparseMatrixMultipliedByVector(DiagStruct& D, cx_vec& u)
+cx_vec sparseMatrixMultipliedByVector(const DiagStruct& D, const cx_vec& u)
 {
     // 计算稀疏矩阵与向量的乘积 D*u
     return fiveMulti(
@@ -25,12 +27,12 @@ cx_vec sparseMatrixMultipliedByVector(DiagStruct& D, cx_vec& u)
 cx_vec sparseMatrixMultipliedByVector(cx_double a, const DiagStruct& A, const cx_vec& u)
 {
     // 计算稀疏矩阵与向量的乘积 （1+aA)*u
-    return (
-        a * A.diagArr(2),//a              
-        1.0+a * A.diagArr(1),//b
-        a * A.diagArr(0),//c
-        A.pos,
-        u); 
+    return triMulti(
+		a * A.diagArr.col(2),//a
+		1 + a * A.diagArr.col(1),//b
+		a * A.diagArr.col(0),//c
+		A.pos,
+		u);
 }
 
 DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
@@ -40,5 +42,14 @@ DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
         A.diagIndex,
         A.pos
     };
+}
+
+cx_vec CNfisrtOne(const DiagStruct& Ayr, const DiagStruct& Ayl, const cx_vec& ur, cx_double a, cx_double b)
+{
+    // 计算(1+aAyr)*ur
+    return thomasSolve(
+        coefficientSparseMatrix(b, Ayl),
+        sparseMatrixMultipliedByVector(a, Ayr, ur)
+    )  ;
 }
 

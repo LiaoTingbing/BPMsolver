@@ -30,9 +30,6 @@
     <ClCompile Include="dydyfunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="lusolve.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="thomas.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -66,9 +63,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="dydyfunc.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lusolve.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="thomas.h">
