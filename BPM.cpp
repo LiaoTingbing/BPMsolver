@@ -158,8 +158,8 @@ void BPM::FullVector_propagate()
 	clock_t t1 = clock();
 
 	for (int i = 0; i < nz - 1; i++) {
-
-		cout << "\t第" << i + 1 << "/" << nz - 1 << "层";
+		cout.flush();
+		cout << "\r\t" << i + 1 << "/" << nz - 1<<"层";
 		// CN差分1.1
 		cx_vec d = spdiags(join_rows(a_*Ay_V(i).diagArr.col(0) ,	 1 + a_ * Ay_V(i).diagArr.col(1), a_ * Ay_V(i).diagArr.col(2)),
 			Ay_V(i).diagIndex, nt, nt).st() * Ex.col(i);
@@ -201,13 +201,10 @@ void BPM::FullVector_propagate()
 		a = b_ * Ax_V(i + 1).diagArr.col(2);
 
 		Ex.col(i + 1) = thomas_algorithm(a, b, c, d);
-
-		cout << "\r";
-		cout.flush();
+		
 	}
 	clock_t t2 = clock();
-	cout << "\t:\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
-
+	cout << "\t\t\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
 
 }
 
