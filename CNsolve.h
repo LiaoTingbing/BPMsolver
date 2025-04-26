@@ -21,3 +21,12 @@ void CNSemiVectorSolve(cx_vec &u2,
 	sp_cx_mat& Ax1, sp_cx_mat& Ay1,
 	sp_cx_mat& Ax2, sp_cx_mat& Ay2,
 	double a, double b);
+
+
+
+// 计算稀疏矩阵与向量的乘积 A*u
+cx_vec sparseMatrixMultipliedByVector(DiagStruct & A ,cx_vec & u);
+
+
+// 计算稀疏矩阵与向量的乘积 （1+aA)*u
+cx_vec sparseMatrixMultipliedByVector(double a , DiagStruct& A, cx_vec& u);
