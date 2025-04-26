@@ -76,9 +76,15 @@ public:
 
 	void Qusi_TE_Propagate();
 
-	void FullVector_propagate();
-
 	void FullVector_propagate_simple();
+
+	// Order 0 = 1,0;
+	// Order 1 = 1,1;
+	// Order 2 = 2,2;
+	// Order 3 = 3,3;
+	// Order 4 = 4,4;
+	void FullVector_WideAngle_propagate_simple(int order);
+
 
 
 	void postData();

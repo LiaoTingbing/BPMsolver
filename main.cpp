@@ -7,14 +7,6 @@
 
 
 
-//void test() {
-//    vec I(16, fill::ones);
-//    sp_mat s = dydyfunc(I, I, I, 4,4);
-//    mat ss = conv_to<mat>::from(s);
-//    ss.print();
-//
-//}
-
 int main()
 {
     //omp_set_num_threads(6);
@@ -33,22 +25,17 @@ int main()
     map<string, cube> dev;
  
     loadData(dev, filePathrosft, rosft);
-
+ 
 
 	BPM bpm(&dev);
 
     bpm.init();
     bpm.compute_PML();
     bpm.compute_Matrix();
-    //bpm.FullVector_propagate();
-    bpm.FullVector_propagate_simple();
+    //bpm.FullVector_propagate_simple();
+    bpm.FullVector_WideAngle_propagate_simple(4);
     bpm.postData();
-    //bpm.getMatrix();
  
-    //bpm.Qusi_TM_Propagate();    //  EX
-    //bpm.Qusi_TE_Propagate();    //  EY
-    //bpm.postData();
-
 
 }
 

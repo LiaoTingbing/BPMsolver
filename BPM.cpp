@@ -185,6 +185,58 @@ void BPM::FullVector_propagate_simple()
 
 }
 
+void BPM::FullVector_WideAngle_propagate_simple(int order)
+{
+	cout << "\t全矢量传播\t广角阶数\t"<<order<<"\n";
+
+	Ex.col(0) = vectorise((*dev)["Exin"]) + 0.0 * iu;
+	Ey.col(0) = vectorise((*dev)["Eyin"]) + 0.0 * iu;
+
+	clock_t t1 = clock();
+
+	// 第i层传播
+	for (int i = 0; i < nz - 1; i++) {
+		cout.flush();
+		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
+
+		// dz放里面可能不均匀的dz和变化的n0
+		cx_vec coffUp = Nn(order) - iu * n0 * k0 * dz * (1 - alpha) * Mn(order);
+		cx_vec coffDown = Nn(order) + iu * n0 * k0 * dz *  alpha * Mn(order);
+
+		cx_vec a = -1.0 / roots(coffUp)/n0/n0/k0/k0 ;
+		cx_vec b = -1.0 / roots(coffDown) / n0 / n0 / k0 / k0;
+
+		cx_vec uout, vout,uin,vin;
+
+		//广角循环
+		uin = Ex.col(i) ;
+		vin = Ey.col(i) ;
+		for (int j = 0;j < Nn(order).size()-1;j++) {
+			//cx_double a_ = (1 - alpha) * dz / 2 / 1i / n0 / k0;
+			//cx_double b_ = -alpha * dz / 2 / 1i / n0 / k0;
+			//求解CN差分方程
+			CNsolve(
+				a(j), b(j),
+				Ay_V(i), Ay_V(i),
+				By_V(i), By_V(i),
+				Ax_V(i), Ax_V(i),
+				Bx_V(i), Bx_V(i),
+				C_V(i), C_V(i),
+				D_V(i), D_V(i),
+				uin, vin,
+				uout, vout
+			);
+			uin = uout;
+			vin = vout;
+		}
+		Ex.col(i + 1) = uout;
+		Ey.col(i + 1) = vout;
+	}
+	clock_t t2 = clock();
+	cout << "\t\t\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
+
+}
+
 void BPM::postData()
 {
 
