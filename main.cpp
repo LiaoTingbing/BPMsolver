@@ -33,6 +33,7 @@ int main()
     bpm.compute_PML();
     bpm.compute_Matrix();
     //bpm.FullVector_propagate_simple();
+    //Pade 1，1最优
     bpm.FullVector_WideAngle_propagate_simple(1); // Pade 5,5
     bpm.postData();
  
