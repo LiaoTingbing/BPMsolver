@@ -26,11 +26,49 @@ DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A);
 cx_vec CNfisrtOne(const DiagStruct& Ayr, const DiagStruct& Ayl,
 	const cx_vec& ur, cx_double a, cx_double b);
 
+
+cx_vec CNfisrtOne(
+	cx_double a,
+	const DiagStruct& Ayr, 
+	const cx_vec& ur,
+	cx_double b,
+	const DiagStruct Ayl);
+
 // CN差分第一步1.2
 cx_vec CNfisrtTwo(
 	cx_double a, 
 	const DiagStruct& Byr, const DiagStruct& Dr,
 	const  cx_vec& vr, const cx_vec& ur,
 	const cx_double b,
-	const DiagStruct Byl,const DiagStruct& Dyl,
+	const DiagStruct Byl,const DiagStruct& Dl,
 	const cx_vec ul);
+
+
+// CN差分第二步2.1
+cx_vec CNsecondOne(
+	cx_double a,
+	const DiagStruct& Bxr,  
+	const cx_vec& vr,  
+	const cx_double b,
+	const DiagStruct Bxl);
+
+// CN差分第二步2.2
+cx_vec CNsecondTwo(
+	cx_double a,
+	const DiagStruct& Axr, const DiagStruct& Cr,
+	const cx_vec& ur, const cx_vec& vr,
+	const cx_double b,
+	const DiagStruct Axl, const DiagStruct& Cl,
+	const cx_vec vl);
+
+void CNsolve(
+	cx_double a, cx_double b,
+	const DiagStruct& Ayr, const DiagStruct& Ayl,
+	const DiagStruct& Byr, const DiagStruct& Byl,
+	const DiagStruct& Axr, const DiagStruct& Axl,
+	const DiagStruct& Bxr, const DiagStruct& Bxl,
+	const DiagStruct& Cr, const DiagStruct& Cl,
+	const DiagStruct& Dr, const DiagStruct& Dl,
+	const cx_vec& ur, const cx_vec& vr,
+	const cx_vec& ul, const cx_vec& vl
+);

@@ -44,12 +44,43 @@ DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
     };
 }
 
-cx_vec CNfisrtOne(const DiagStruct& Ayr, const DiagStruct& Ayl, const cx_vec& ur, cx_double a, cx_double b)
+ 
+
+cx_vec CNfisrtOne(cx_double a, const DiagStruct& Ayr, const cx_vec& ur, cx_double b, const DiagStruct Ayl)
 {
-    // 计算(1+aAyr)*ur
     return thomasSolve(
         coefficientSparseMatrix(b, Ayl),
         sparseMatrixMultipliedByVector(a, Ayr, ur)
-    )  ;
+    );
+}
+
+cx_vec CNfisrtTwo(cx_double a, const DiagStruct& Byr, const DiagStruct& Dr, const cx_vec& vr, const cx_vec& ur, const cx_double b, const DiagStruct Byl, const DiagStruct& Dl, const cx_vec ul)
+{
+    return thomasSolve(
+        coefficientSparseMatrix(b, Byl),
+        sparseMatrixMultipliedByVector(a, Byr, vr)
+        + a * sparseMatrixMultipliedByVector(Dr, ur)
+        - b * sparseMatrixMultipliedByVector(Dl, ul)
+    );
+}
+
+ 
+
+cx_vec CNsecondOne(cx_double a, const DiagStruct& Bxr, const cx_vec& vr, const cx_double b, const DiagStruct Bxl)
+{
+    return thomasSolve(
+        coefficientSparseMatrix(b, Bxl),
+        sparseMatrixMultipliedByVector(a, Bxr, vr)
+    );
+}
+
+cx_vec CNsecondTwo(cx_double a, const DiagStruct& Axr, const DiagStruct& Cr, const cx_vec& ur, const cx_vec& vr, const cx_double b, const DiagStruct Axl, const DiagStruct& Cl, const cx_vec vl)
+{
+    return thomasSolve(
+        coefficientSparseMatrix(b, Axl),
+        sparseMatrixMultipliedByVector(a, Axr, ur)
+        + a * sparseMatrixMultipliedByVector(Cr, vr)
+        - b * sparseMatrixMultipliedByVector(Cl, vl)
+    );
 }
 
