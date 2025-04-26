@@ -1,11 +1,10 @@
 ﻿// bpm20250421.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
-#pragma execution_character_set("utf-8")
+
 #include "common.h"
 #include "loadHDF5.h"
 #include "BPM.h"
-#include "dxdxfunc.h"
-#include "dydyfunc.h"
+
 
 
 //void test() {
@@ -41,8 +40,8 @@ int main()
     bpm.init();
     bpm.compute_PML();
     bpm.compute_Matrix();
-    bpm.FullVector_propagate();
-    //bpm.FullVector_propagate_simple();
+    //bpm.FullVector_propagate();
+    bpm.FullVector_propagate_simple();
     bpm.postData();
     //bpm.getMatrix();
  

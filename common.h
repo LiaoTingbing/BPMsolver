@@ -25,8 +25,7 @@ const std::complex<double> iu(0, 1);
 
 struct  DiagStruct
 {
-	// d c b a 逆序 生成稀疏矩阵方便
+	// a b c d
 	cx_mat diagArr;
-	ivec diagIndex;
 	int pos;
 };

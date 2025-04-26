@@ -33,12 +33,12 @@ sp_cx_mat dydyfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, in
 
  
 	diagv.diagArr.set_size(ng, 3);
-	diagv.diagArr.col(0) = c * 2 / dy / dy;
+	diagv.diagArr.col(0) = a * 2 / dy / dy;
 	diagv.diagArr.col(1) = b * 2 / dy / dy;
-	diagv.diagArr.col(2) = a * 2 / dy / dy;
+	diagv.diagArr.col(2) = c * 2 / dy / dy;
 
-	diagv.diagIndex = { -nx,0,nx };
-	diagv.pos = 1;
+	//diagv.diagIndex = { -nx,0,nx };
+	diagv.pos = nx;
 
 	//sp_cx_mat s = spdiags(diagv.D,diagv.pos, ng, ng).st();
 	return sp_cx_mat{};

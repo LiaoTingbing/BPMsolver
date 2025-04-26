@@ -140,10 +140,8 @@
     <ClCompile Include="dxdyfunc.cpp" />
     <ClCompile Include="dydxfunc.cpp" />
     <ClCompile Include="dydyfunc.cpp" />
-    <ClCompile Include="main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="loadHDF5.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="thomas.cpp" />
     <ClCompile Include="源.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
