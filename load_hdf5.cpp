@@ -1,4 +1,4 @@
-#include "loadHDF5.h"
+ï»¿#include "load_hdf5.h"
 
 
 void loadData(map<string, cube>& dev,
@@ -6,7 +6,7 @@ void loadData(map<string, cube>& dev,
 	field<string>& s) {
 	// map<string,cube> device;
 	// device["z"]=aload()
-	cout << "¼ÓÔØÊý¾Ý	£º\n" ;
+	cout << "åŠ è½½æ•°æ®	ï¼š\n" ;
 	cube tmp;
 
 	for (int i = 0; i < s.size(); i++) {

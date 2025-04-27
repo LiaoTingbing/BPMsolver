@@ -16,11 +16,11 @@ using namespace arma;
 using namespace  std;
 using namespace arma;
 
-const double pi = 3.14159265358979323846;
-const double eps0 = 8.854187817e-12;
-const double mu0 = 4e-7 * pi;
-const double c0 = 1/sqrt(eps0 * mu0);
-const std::complex<double> iu(0, 1);
+const double PI = 3.14159265358979323846;
+const double EPS0 = 8.854187817e-12;
+const double MU0 = 4e-7 * PI;
+const double C0 = 1/sqrt(EPS0 * MU0);
+const std::complex<double> IU(0, 1);
 
 
 struct  DiagStruct
@@ -32,7 +32,7 @@ struct  DiagStruct
 
 
 // 广角系数
-const field<cx_vec> Mn{
+const field<cx_vec> MN{
 	{1.0 / 2.0,	0.0 }, //1,0
 	{1.0 / 2.0,	0.0 },	//
 	{1.0 / 4.0,	1.0 / 2.0,	0.0},
@@ -40,7 +40,7 @@ const field<cx_vec> Mn{
 	{8 / 256.0,		80 / 256.0,		8*24 / 256.0,	8*16 / 256.0,	0 / 256.0},
 	{10 / 1024.0,	160 / 1024.0,	672 / 1024.0,	1024 / 1024.0,	512 / 1024.0,	0 / 1024.0}
 };
-const  field<cx_vec> Nn{
+const  field<cx_vec> NN{
 	{0.0,			1.0},
 	{1.0/4.0,		1.0},
 	{1.0/16.0,	3.0/4.0,	1.0},

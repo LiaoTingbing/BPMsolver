@@ -1,9 +1,9 @@
-﻿#include "CNsolve.h"
+﻿#include "cn_solve.h"
 
 cx_vec thomasSolve(const DiagStruct& A, const cx_vec& y)
 {
 
-	return thomas_algorithm(
+	return thomasAlgorithm(
 		A.diagArr.col(0),   //a
 		A.diagArr.col(1),   //b
 		A.diagArr.col(2),   //c
@@ -44,7 +44,7 @@ DiagStruct coefficientSparseMatrix(cx_double a, const DiagStruct& A)
 }
 
 
-cx_vec CNfisrtOne(cx_double a, const DiagStruct& Ayr, const cx_vec& ur, cx_double b, const DiagStruct Ayl)
+cx_vec cnFirstOne(cx_double a, const DiagStruct& Ayr, const cx_vec& ur, cx_double b, const DiagStruct Ayl)
 {
 	return thomasSolve(
 		coefficientSparseMatrix(b, Ayl),
@@ -52,7 +52,7 @@ cx_vec CNfisrtOne(cx_double a, const DiagStruct& Ayr, const cx_vec& ur, cx_doubl
 	);
 }
 
-cx_vec CNfisrtTwo(cx_double a, const DiagStruct& Byr, const DiagStruct& Dr, const cx_vec& vr, const cx_vec& ur, const cx_double b, const DiagStruct Byl, const DiagStruct& Dl, const cx_vec ul)
+cx_vec cnFirstTwo(cx_double a, const DiagStruct& Byr, const DiagStruct& Dr, const cx_vec& vr, const cx_vec& ur, const cx_double b, const DiagStruct Byl, const DiagStruct& Dl, const cx_vec ul)
 {
 	return thomasSolve(
 		coefficientSparseMatrix(b, Byl),
@@ -64,7 +64,7 @@ cx_vec CNfisrtTwo(cx_double a, const DiagStruct& Byr, const DiagStruct& Dr, cons
 
 
 
-cx_vec CNsecondOne(cx_double a, const DiagStruct& Bxr, const cx_vec& vr, const cx_double b, const DiagStruct Bxl)
+cx_vec cnSecondOne(cx_double a, const DiagStruct& Bxr, const cx_vec& vr, const cx_double b, const DiagStruct Bxl)
 {
 	return thomasSolve(
 		coefficientSparseMatrix(b, Bxl),
@@ -72,7 +72,7 @@ cx_vec CNsecondOne(cx_double a, const DiagStruct& Bxr, const cx_vec& vr, const c
 	);
 }
 
-cx_vec CNsecondTwo(cx_double a, const DiagStruct& Axr, const DiagStruct& Cr, const cx_vec& ur, const cx_vec& vr, const cx_double b, const DiagStruct Axl, const DiagStruct& Cl, const cx_vec vl)
+cx_vec cnSecondTwo(cx_double a, const DiagStruct& Axr, const DiagStruct& Cr, const cx_vec& ur, const cx_vec& vr, const cx_double b, const DiagStruct Axl, const DiagStruct& Cl, const cx_vec vl)
 {
 	return thomasSolve(
 		coefficientSparseMatrix(b, Axl),
@@ -82,16 +82,16 @@ cx_vec CNsecondTwo(cx_double a, const DiagStruct& Axr, const DiagStruct& Cr, con
 	);
 }
 
-void CNsolve(cx_double a, cx_double b, const DiagStruct& Ayr, const DiagStruct& Ayl, const DiagStruct& Byr, const DiagStruct& Byl, const DiagStruct& Axr, const DiagStruct& Axl, const DiagStruct& Bxr, const DiagStruct& Bxl, const DiagStruct& Cr, const DiagStruct& Cl, const DiagStruct& Dr, const DiagStruct& Dl, const cx_vec& uin, const cx_vec& vin, cx_vec& uout, cx_vec& vout)
+void cnSolve(cx_double a, cx_double b, const DiagStruct& Ayr, const DiagStruct& Ayl, const DiagStruct& Byr, const DiagStruct& Byl, const DiagStruct& Axr, const DiagStruct& Axl, const DiagStruct& Bxr, const DiagStruct& Bxl, const DiagStruct& Cr, const DiagStruct& Cl, const DiagStruct& Dr, const DiagStruct& Dl, const cx_vec& uin, const cx_vec& vin, cx_vec& uout, cx_vec& vout)
 {
 	//CN差分第一步1.1
-	cx_vec utmp = CNfisrtOne(a, Ayr, uin, b, Ayl);
+	cx_vec utmp = cnFirstOne(a, Ayr, uin, b, Ayl);
 	//CN差分第一步1.2
-	cx_vec vtmp = CNfisrtTwo(a, Byr, Dr, vin, uin, b, Byl, Dl, utmp);
+	cx_vec vtmp = cnFirstTwo(a, Byr, Dr, vin, uin, b, Byl, Dl, utmp);
 	//CN差分第二步2.1
-	vout = CNsecondOne(a, Bxr, vtmp, b, Bxl);
+	vout = cnSecondOne(a, Bxr, vtmp, b, Bxl);
 	//CN差分第二步2.2
-	uout = CNsecondTwo(a, Axr, Cr, utmp, vtmp, b, Axl, Cl, vout);
+	uout = cnSecondTwo(a, Axr, Cr, utmp, vtmp, b, Axl, Cl, vout);
 	// 计算结果
 }
 

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "common.h"
-#include "bandMulti.h"
+#include "band_multi.h"
 #include "thomas.h"
 
 
@@ -32,7 +32,7 @@ cx_vec CNfisrtOne(
 	const DiagStruct Ayl);
 
 // CN差分第一步1.2
-cx_vec CNfisrtTwo(
+cx_vec cnFirstTwo(
 	cx_double a,
 	const DiagStruct& Byr, const DiagStruct& Dr,
 	const  cx_vec& vr, const cx_vec& ur,
@@ -42,7 +42,7 @@ cx_vec CNfisrtTwo(
 
 
 // CN差分第二步2.1
-cx_vec CNsecondOne(
+cx_vec cnSecondOne(
 	cx_double a,
 	const DiagStruct& Bxr,
 	const cx_vec& vr,
@@ -50,7 +50,7 @@ cx_vec CNsecondOne(
 	const DiagStruct Bxl);
 
 // CN差分第二步2.2
-cx_vec CNsecondTwo(
+cx_vec cnSecondTwo(
 	cx_double a,
 	const DiagStruct& Axr, const DiagStruct& Cr,
 	const cx_vec& ur, const cx_vec& vr,
@@ -58,7 +58,7 @@ cx_vec CNsecondTwo(
 	const DiagStruct Axl, const DiagStruct& Cl,
 	const cx_vec vl);
 
-void CNsolve(
+void cnSolve(
 	cx_double a, cx_double b,
 	const DiagStruct& Ayr, const DiagStruct& Ayl,
 	const DiagStruct& Byr, const DiagStruct& Byl,

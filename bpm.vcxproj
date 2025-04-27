@@ -134,37 +134,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bandMulti.cpp" />
-    <ClCompile Include="BPM.cpp" />
-    <ClCompile Include="CNsolve.cpp" />
+    <ClCompile Include="band_multi.cpp" />
+    <ClCompile Include="bpm.cpp" />
+    <ClCompile Include="cn_solve.h.cpp" />
     <ClCompile Include="dxdxfunc.cpp" />
     <ClCompile Include="dxdyfunc.cpp" />
     <ClCompile Include="dydxfunc.cpp" />
     <ClCompile Include="dydyfunc.cpp" />
-    <ClCompile Include="loadHDF5.cpp" />
+    <ClCompile Include="load_hdf5.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="testWideAngle.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="thomas.cpp" />
-    <ClCompile Include="testThomas.cpp">
+    <ClCompile Include="test_thomas.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bandMulti.h" />
-    <ClInclude Include="BPM.h" />
-    <ClInclude Include="CNsolve.h" />
+    <ClInclude Include="band_multi.h" />
+    <ClInclude Include="bpm.h" />
+    <ClInclude Include="cn_solve.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="dxdxfunc.h" />
     <ClInclude Include="dxdyfunc.h" />
     <ClInclude Include="dydxfunc.h" />
     <ClInclude Include="dydyfunc.h" />
-    <ClInclude Include="loadHDF5.h" />
+    <ClInclude Include="load_hdf5.h" />
     <ClInclude Include="thomas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

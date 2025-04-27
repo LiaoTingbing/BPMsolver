@@ -1,117 +1,118 @@
 ﻿#include "BPM.h"
 
-void BPM::init()
+void Bpm::init()
 {
  
-	nx = (*dev)["x"].n_elem;
-	ny = (*dev)["y"].n_elem;
-	nz = (*dev)["z"].n_elem;
-	nt = nx * ny;
+	nx_ = (*dev_)["x"].n_elem;
+	ny_ = (*dev_)["y"].n_elem;
+	nz_ = (*dev_)["z"].n_elem;
+	nt_ = nx_ * ny_;
 
-	cout << "nx = " << nx << endl;
-	cout << "ny = " << ny << endl;
-	cout << "nz = " << nz << endl;
-	cout << "nt = " << nt << endl;
+	cout << "nx = " << nx_ << endl;
+	cout << "ny = " << ny_ << endl;
+	cout << "nz = " << nz_ << endl;
+	cout << "nt = " << nt_ << endl;
 
 
-	dx = (*dev)["x"](1) - (*dev)["x"](0);
-	dy = (*dev)["y"](1) - (*dev)["y"](0);
-	dz = (*dev)["z"](1) - (*dev)["z"](0);
-	lambda = (*dev)["lambda"](0);
-	k0 = 2 * pi / lambda;
-	n0 = (*dev)["neff"](0);
-	alpha = 0.5; // CN 差分控制参数 
+	dx_ = (*dev_)["x"](1) - (*dev_)["x"](0);
+	dy_ = (*dev_)["y"](1) - (*dev_)["y"](0);
+	dz_ = (*dev_)["z"](1) - (*dev_)["z"](0);
+	lambda_ = (*dev_)["lambda"](0);
+	k0_ = 2 * PI / lambda_;
+	n0_ = (*dev_)["neff"](0);
+	alpha_ = 0.5; // CN 差分控制参数 
 
-	cout << "dx = " << dx << endl;
-	cout << "dy = " << dy << endl;
-	cout << "dz = " << dz << endl;
-	cout << "lambda = " << lambda << endl;
+	cout << "dx = " << dx_ << endl;
+	cout << "dy = " << dy_ << endl;
+	cout << "dz = " << dz_ << endl;
+	cout << "lambda = " << lambda_ << endl;
 	//cout << "k0 = " << k0 << endl;
-	cout << "n0 = " << n0 << endl;
-	cout << "alpha = " << alpha << endl;
+	cout << "n0 = " << n0_ << endl;
+	cout << "alpha = " << alpha_ << endl;
 
-	Ex.set_size(nt, nz);
-	Ey.set_size(nt, nz);
+	ex_.set_size(nt_, nz_);
+	ey_.set_size(nt_, nz_);
 
 }
 
-void BPM::compute_PML()
+void Bpm::computePML(int layersPML)
 {
-	int layersPML = 10 ;
+	//int layersPML = 10 ;
 	cout << "\t初始化PML参数\tPML层数："<<layersPML<<"\n";
-	cx_mat Sx(nx, ny, fill::ones), Sy(nx, ny, fill::ones);
+	cx_mat sx(nx_, ny_, fill::ones);
+	cx_mat sy(nx_, ny_, fill::ones);
 	int m = 3;
-	double omega = c0 * k0;
-	double R0 = 1e-6;
-	double sigmaXmax = -(m + 1) * log10(R0) / (2 * 373 * dx * layersPML);
-	double sigmaYmax = -(m + 1) * log10(R0) / (2 * 373 * dy * layersPML);
+	double omega = C0 * k0_;
+	const double R0 = 1e-6;
+	double sigmaXMax = -(m + 1) * log10(R0) / (2 * 373 * dx_ * layersPML);
+	double sigmaYMax = -(m + 1) * log10(R0) / (2 * 373 * dy_ * layersPML);
 
 
-	cx_double value = 0;
+	cx_double value ;
 	for (int i = 0;i < layersPML + 1;i++) {
 
-		value = 1.0 + sigmaXmax * pow((layersPML - i + 0.0) / layersPML, m) / (iu * omega * eps0);
-		Sx.row(i) = cx_rowvec(ny, fill::value(value));
-		Sx.row(nx - 1 - i) = Sx.row(i);
+		value = 1.0 + sigmaXMax * pow((layersPML - i + 0.0) / layersPML, m) / (IU * omega * EPS0);
+		sx.row(i) = cx_rowvec(ny_, fill::value(value));
+		sx.row(nx_ - 1 - i) = sx.row(i);
 
-		value = 1.0 + sigmaYmax * pow((layersPML - i + 0.0) / layersPML, m) / (iu * omega * eps0);
-		Sy.col(i) = cx_vec(nx, fill::value(value));
-		Sy.col(ny - 1 - i) = Sy.col(i);
+		value = 1.0 + sigmaYMax * pow((layersPML - i + 0.0) / layersPML, m) / (IU * omega * EPS0);
+		sy.col(i) = cx_vec(nx_, fill::value(value));
+		sy.col(ny_ - 1 - i) = sy.col(i);
 
 	}
-	sx = Sx.as_col();
-	sy = Sy.as_col();
-	isx = 1 / sx;
-	isy = 1 / sy;
+	sx_ = sx.as_col();
+	sy_ = sy.as_col();
+	isx_ = 1 / sx_;
+	isy_ = 1 / sy_;
 }
 
-void BPM::compute_Matrix()
+void Bpm::computeMatrix()
 {
 	cout << "\t计算Ax Ay Bx By C D";
 
-	Ax_V.set_size(nz);
-	Ay_V.set_size(nz);
-	Bx_V.set_size(nz);
-	By_V.set_size(nz);
-	C_V.set_size(nz);
-	D_V.set_size(nz);
+	Ax_.set_size(nz_);
+	Ay_.set_size(nz_);
+	Bx_.set_size(nz_);
+	By_.set_size(nz_);
+	C_.set_size(nz_);
+	D_.set_size(nz_);
 	clock_t t1 = clock();
 #pragma omp parallel for
-	for (int i = 0; i < nz;i++)
+	for (int i = 0; i < nz_;i++)
 	{
-		cx_vec erx = (*dev)["Epsx"].slice(i).as_col() + 0.0 * iu;
-		cx_vec erz = (*dev)["Epsx"].slice(i).as_col() + 0.0 * iu;
-		cx_vec ery = (*dev)["Epsy"].slice(i).as_col() + 0.0 * iu;
-		cx_vec erxy = (*dev)["Epsxy"].slice(i).as_col() + 0.0 * iu;
-		cx_vec eryx = (*dev)["Epsyx"].slice(i).as_col() + 0.0 * iu;
+		cx_vec erx = (*dev_)["Epsx"].slice(i).as_col() + 0.0 * IU;
+		cx_vec erz = (*dev_)["Epsx"].slice(i).as_col() + 0.0 * IU;
+		cx_vec ery = (*dev_)["Epsy"].slice(i).as_col() + 0.0 * IU;
+		cx_vec erxy = (*dev_)["Epsxy"].slice(i).as_col() + 0.0 * IU;
+		cx_vec eryx = (*dev_)["Epsyx"].slice(i).as_col() + 0.0 * IU;
 
 
-		dxdxfunc(isx, sx % erz, erx, nx, ny, dx, dy, Ax_V(i));
-		Ax_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (erx - n0 * n0);
+		dxdxFunc(isx_, sx_ % erz, erx, nx_, ny_, dx_, dy_, Ax_(i));
+		Ax_(i).diagArr.col(1) += 0.5 * k0_ * k0_ * (erx - n0_ * n0_);
 
-		dydyfunc(isy, sy, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, Ay_V(i));
-		Ay_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (erx - n0 * n0);
+		dydyFunc(isy_, sy_, cx_vec(nx_ * ny_, fill::ones), nx_, ny_, dx_, dy_, Ay_(i));
+		Ay_(i).diagArr.col(1) += 0.5 * k0_ * k0_ * (erx - n0_ * n0_);
 
-		dxdxfunc(isx, sx, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, Bx_V(i));
-		Bx_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
+		dxdxFunc(isx_, sx_, cx_vec(nx_ * ny_, fill::ones), nx_, ny_, dx_, dy_, Bx_(i));
+		Bx_(i).diagArr.col(1) += 0.5 * k0_ * k0_ * (ery - n0_ * n0_);
 
-		dydyfunc(isy, sy % erz, ery, nx, ny, dx, dy, By_V(i));
-		By_V(i).diagArr.col(1) += 0.5 * k0 * k0 * (ery - n0 * n0);
+		dydyFunc(isy_, sy_ % erz, ery, nx_, ny_, dx_, dy_, By_(i));
+		By_(i).diagArr.col(1) += 0.5 * k0_ * k0_ * (ery - n0_ * n0_);
 
-		DiagStruct C1, C2;
-		dxdyfunc(isx, sy % erz, ery, nx, ny, dx, dy, C1);
-		dxdyfunc(isx, sy, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, C2);
-		C_V(i).diagArr = C1.diagArr - C2.diagArr;
-		C_V(i).diagArr.col(2) = erxy * k0 * k0;
-		C_V(i).pos = C1.pos;
+		DiagStruct c1, c2;
+		dxdyFunc(isx_, sy_ % erz, ery, nx_, ny_, dx_, dy_, c1);
+		dxdyFunc(isx_, sy_, cx_vec(nx_ * ny_, fill::ones), nx_, ny_, dx_, dy_, c2);
+		C_(i).diagArr = c1.diagArr - c2.diagArr;
+		C_(i).diagArr.col(2) = erxy * k0_ * k0_;
+		C_(i).pos = c1.pos;
 
 
-		DiagStruct C3, C4;
-		dydxfunc(isy, sx % erz, erx, nx, ny, dx, dy, C3);
-		dydxfunc(isy, sx, cx_vec(nx * ny, fill::ones), nx, ny, dx, dy, C4);
-		D_V(i).diagArr = C3.diagArr - C4.diagArr;
-		D_V(i).diagArr.col(2) = erxy * k0 * k0;
-		D_V(i).pos = C3.pos;
+		DiagStruct c3, c4;
+		dydxFunc(isy_, sx_ % erz, erx, nx_, ny_, dx_, dy_, c3);
+		dydxFunc(isy_, sx_, cx_vec(nx_ * ny_, fill::ones), nx_, ny_, dx_, dy_, c4);
+		D_(i).diagArr = c3.diagArr - c4.diagArr;
+		D_(i).diagArr.col(2) = erxy * k0_ * k0_;
+		D_(i).pos = c3.pos;
  
 	}
 	clock_t t2 = clock();
@@ -129,107 +130,107 @@ void BPM::compute_Matrix()
 
 
 
-void BPM::Qusi_TM_Propagate()
+void Bpm::qusiTmPropagate()
 {
 
 
 
 }
 
-void BPM::Qusi_TE_Propagate()
+void Bpm::qusiTePropagate()
 {
 
 }
 
 
-void BPM::FullVector_propagate_simple()
+void Bpm::fullVectorPropagateSimple()
 {
 
 	cout << "\t全矢量传播\n";
 
-	Ex.col(0) = vectorise((*dev)["Exin"]) + 0.0 * iu;
-	Ey.col(0) = vectorise((*dev)["Eyin"]) + 0.0 * iu;
+	ex_.col(0) = vectorise((*dev_)["Exin"]) + 0.0 * IU;
+	ey_.col(0) = vectorise((*dev_)["Eyin"]) + 0.0 * IU;
 
 	clock_t t1 = clock();
 
-	for (int i = 0; i < nz - 1; i++) {
+	for (int i = 0; i < nz_ - 1; i++) {
 		cout.flush();
-		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
+		cout << "\r\t" << i + 1 << "/" << nz_ - 1 << "层";
 
 		//求解CN差分方程
-		cx_double a_ = (1 - alpha) * dz / 2 / 1i / n0 / k0;
-		cx_double b_ = -alpha * dz / 2 / 1i / n0 / k0;
+		cx_double a = (1 - alpha_) * dz_ / 2 / 1i / n0_ / k0_;
+		cx_double b = -alpha_ * dz_ / 2 / 1i / n0_ / k0_;
 		cx_vec uout, vout;
-		CNsolve(
-			a_, b_,
-			Ay_V(i), Ay_V(i + 1),
-			By_V(i), By_V(i + 1),
-			Ax_V(i), Ax_V(i + 1),
-			Bx_V(i), Bx_V(i + 1),
-			C_V(i), C_V(i + 1),
-			D_V(i), D_V(i + 1),
-			Ex.col(i), Ey.col(i),
+		cnSolve(
+			a, b,
+			Ay_(i), Ay_(i + 1),
+			By_(i), By_(i + 1),
+			Ax_(i), Ax_(i + 1),
+			Bx_(i), Bx_(i + 1),
+			C_(i), C_(i + 1),
+			D_(i), D_(i + 1),
+			ex_.col(i), ey_.col(i),
 			uout, vout
 		);
-		Ex.col(i + 1) = uout;
-		Ey.col(i + 1) = vout;
+		ex_.col(i + 1) = uout;
+		ey_.col(i + 1) = vout;
 	}
 	clock_t t2 = clock();
 	cout << "\t\t\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
 
 }
 
-void BPM::FullVector_WideAngle_propagate_simple(int order)
+void Bpm::fullVectorWideAnglePropagateSimple(int order)
 {
 	cout << "\t全矢量传播\t广角阶数\t"<<order<<"\n";
 
-	Ex.col(0) = vectorise((*dev)["Exin"]) + 0.0 * iu;
-	Ey.col(0) = vectorise((*dev)["Eyin"]) + 0.0 * iu;
+	ex_.col(0) = vectorise((*dev_)["Exin"]) + 0.0 * IU;
+	ey_.col(0) = vectorise((*dev_)["Eyin"]) + 0.0 * IU;
 
 	clock_t t1 = clock();
-	cx_vec coffUp = Nn(order) - iu * n0 * k0 * dz * (1 - alpha) * Mn(order);
-	cx_vec coffDown = Nn(order) + iu * n0 * k0 * dz * alpha * Mn(order);
-	cx_vec a = -1.0 / roots(coffUp) / n0 / n0 / k0 / k0;
-	cx_vec b = -1.0 / roots(coffDown) / n0 / n0 / k0 / k0;
+	cx_vec coffUp = NN(order) - IU * n0_ * k0_ * dz_ * (1 - alpha_) * MN(order);
+	cx_vec coffDown = NN(order) + IU * n0_ * k0_ * dz_ * alpha_ * MN(order);
+	cx_vec a = -1.0 / roots(coffUp) / n0_ / n0_ / k0_ / k0_;
+	cx_vec b = -1.0 / roots(coffDown) / n0_ / n0_ / k0_ / k0_;
 	cx_vec uout, vout, uin, vin;
 
 	// 第i层传播
-	for (int i = 0; i < nz - 1; i++) {
+	for (int i = 0; i < nz_ - 1; i++) {
 		cout.flush();
-		cout << "\r\t" << i + 1 << "/" << nz - 1 << "层";
+		cout << "\r\t" << i + 1 << "/" << nz_ - 1 << "层";
 
 		// dz放里面可能不均匀的dz和变化的n0
 
 		//广角循环
-		uin = Ex.col(i) ;
-		vin = Ey.col(i) ;
-		for (int j = 0;j < Nn(order).size()-1;j++) {
+		uin = ex_.col(i) ;
+		vin = ey_.col(i) ;
+		for (int j = 0;j < NN(order).size()-1;j++) {
 			//cx_double a_ = (1 - alpha) * dz / 2 / 1i / n0 / k0;
 			//cx_double b_ = -alpha * dz / 2 / 1i / n0 / k0;
 			//求解CN差分方程
-			CNsolve(
+			cnSolve(
 				a(j), b(j),
-				Ay_V(i), Ay_V(i + 1),
-				By_V(i), By_V(i + 1),
-				Ax_V(i), Ax_V(i + 1),
-				Bx_V(i), Bx_V(i + 1),
-				C_V(i), C_V(i + 1),
-				D_V(i), D_V(i + 1),
+				Ay_(i), Ay_(i + 1),
+				By_(i), By_(i + 1),
+				Ax_(i), Ax_(i + 1),
+				Bx_(i), Bx_(i + 1),
+				C_(i), C_(i + 1),
+				D_(i), D_(i + 1),
 				uin, vin,
 				uout, vout
 			);
 			uin = uout;
 			vin = vout;
 		}
-		Ex.col(i + 1) = uout;
-		Ey.col(i + 1) = vout;
+		ex_.col(i + 1) = uout;
+		ey_.col(i + 1) = vout;
 	}
 	clock_t t2 = clock();
 	cout << "\t\t\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
 
 }
 
-void BPM::postData()
+void Bpm::postData()
 {
 
 	system("del output/bpmOut.h5");
@@ -238,19 +239,19 @@ void BPM::postData()
 
 	string filePath = "output/bpmOut.h5";
 
-	(*dev)["x"].save(hdf5_name(filePath, "x"));
-	(*dev)["y"].save(hdf5_name(filePath, "y", hdf5_opts::append));
-	(*dev)["z"].save(hdf5_name(filePath, "z", hdf5_opts::append));
+	(*dev_)["x"].save(hdf5_name(filePath, "x"));
+	(*dev_)["y"].save(hdf5_name(filePath, "y", hdf5_opts::append));
+	(*dev_)["z"].save(hdf5_name(filePath, "z", hdf5_opts::append));
 
-	mat Ex_abs = abs(Ex);
-	Ex_abs.save(hdf5_name(filePath, "Ex_abs", hdf5_opts::append));
-	mat Ey_abs = abs(Ey);
-	Ey_abs.save(hdf5_name(filePath, "Ey_abs", hdf5_opts::append));
+	mat exAbs = abs(ex_);
+	exAbs.save(hdf5_name(filePath, "Ex_abs", hdf5_opts::append));
+	mat eyAbs = abs(ey_);
+	eyAbs.save(hdf5_name(filePath, "Ey_abs", hdf5_opts::append));
 
-	mat Ex_real = real(Ex);
-	Ex_real.save(hdf5_name(filePath, "Ex_real", hdf5_opts::append));
+	mat exReal = real(ex_);
+	exReal.save(hdf5_name(filePath, "Ex_real", hdf5_opts::append));
 
-	mat Ey_real = real(Ey);
-	Ey_real.save(hdf5_name(filePath, "Ey_real", hdf5_opts::append));
+	mat eyReal = real(ey_);
+	eyReal.save(hdf5_name(filePath, "Ey_real", hdf5_opts::append));
 
 }

@@ -1,4 +1,4 @@
-
+ï»¿
 #include "common.h"
 
 //#include "BPM.h"
@@ -6,7 +6,7 @@
 
 
 
-// ²âÊÔÍÐÂíË¹Ëã·¨
+// æµ‹è¯•æ‰˜é©¬æ–¯ç®—æ³•
 
 
 int main()
@@ -17,17 +17,17 @@ int main()
 	cx_vec d(10000000 , fill::randu);
 
 	clock_t t1 = clock();
-	cx_vec ans = thomas_algorithm(a, b, c, d);
+	cx_vec ans = thomasAlgorithm(a, b, c, d);
 	//ans.print();
 	clock_t t2 = clock();
-	cout << "×ÜÊ±¼ä£º\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
+	cout << "æ€»æ—¶é—´ï¼š\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
 
 
 	  t1 = clock();
-	  ans = thomas_algorithm(a, b, c, 1,d);
+	  ans = thomasAlgorithm(a, b, c, 1,d);
 	//ans.print();
 	  t2 = clock();
 
-	cout << "×ÜÊ±¼ä£º\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
+	cout << "æ€»æ—¶é—´ï¼š\t" << (double)(t2 - t1) / CLOCKS_PER_SEC << "s" << endl;
 	return 0;
 }

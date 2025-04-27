@@ -2,8 +2,8 @@
 //
 
 #include "common.h"
-#include "loadHDF5.h"
-#include "BPM.h"
+#include "load_hdf5.h"
+#include "bpm.h"
 
 
 
@@ -12,7 +12,7 @@ int main()
     //omp_set_num_threads(6);
     //test();
 
-    string filePathrosft = "matlab/rsoft.h5";
+    string filePathRosft = "matlab/rsoft.h5";
 
 
     field<string> rosft = {
@@ -24,17 +24,17 @@ int main()
 
     map<string, cube> dev;
  
-    loadData(dev, filePathrosft, rosft);
+    loadData(dev, filePathRosft, rosft);
  
 
-	BPM bpm(&dev);
+	Bpm bpm(&dev);
 
     bpm.init();
-    bpm.compute_PML();
-    bpm.compute_Matrix();
+    bpm.computePML();
+    bpm.computeMatrix();
     //bpm.FullVector_propagate_simple();
     //Pade 1，1最优
-    bpm.FullVector_WideAngle_propagate_simple(1); // Pade 5,5
+    bpm.fullVectorWideAnglePropagateSimple(); // Pade 5,5
     bpm.postData();
  
 

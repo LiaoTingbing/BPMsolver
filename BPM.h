@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "common.h"
-#include "CNsolve.h"
+#include "cn_solve.h"
  
 
 #include "dxdxfunc.h"
@@ -13,70 +13,55 @@
 
 
 
-class BPM
+class Bpm
 {
-	map<string, cube>* dev;
+	map<string, cube>* dev_;
 
-	double dx, dy, dz;
-	int nx, ny, nz,nt;
-	double lambda, k0, n0;
-	double alpha;              // CN 差分控制参数
-
-	//field<sp_cx_mat> Ax;
-	//field<sp_cx_mat> Ay;
-	//field<sp_cx_mat> Bx;
-	//field<sp_cx_mat> By;
-	//field<sp_cx_mat> C;
-	//field<sp_cx_mat> D;
-
-	field<DiagStruct> Ax_V;
-	field<DiagStruct> Ay_V;
-	field<DiagStruct> Bx_V;
-	field<DiagStruct> By_V;
-	field<DiagStruct> C_V;
-	field<DiagStruct> D_V;
-
-
-	cx_vec sx,sy,isx,isy;
-
-
-
-
+	double dx_, dy_, dz_;
+	int nx_, ny_, nz_,nt_;
+	double lambda_, k0_, n0_;
+	double alpha_;              // CN 差分控制参数
  
-	//vec exin;
-	//vec eyin;
+	field<DiagStruct> Ax_;           //依据书上命名
+	field<DiagStruct> Ay_;
+	field<DiagStruct> Bx_;
+	field<DiagStruct> By_;
+	field<DiagStruct> C_;
+	field<DiagStruct> D_;
+
+
+	cx_vec sx_,sy_,isx_,isy_;
  
 
 	//	首字母大写矩阵
 	//	首字母小写列向量
-	cx_mat Ex;      //  nt*nz
-	cx_mat Ey;		//	nt *nz
+	cx_mat ex_;      //  nt*nz
+	cx_mat ey_;		//	nt *nz
 
 public:
 
-	BPM(map<string, cube>* dev_) {
-		dev = dev_;
+	Bpm(map<string, cube>* dev) {
+		dev_ = dev;
 	};
-	BPM() {
 
+	Bpm() {
 	};
-	~BPM() {
 
+	~Bpm() {
 	};
 
 	
 	void init();
 
+	void computePML(int layersPML = 10);      // 计算PML参数
 
-	void compute_PML();      // 计算PML参数
-
-	void compute_Matrix();
+	void computeMatrix();
  
-	void Qusi_TM_Propagate();
+	void qusiTmPropagate();
 
-	void Qusi_TE_Propagate();
+	void qusiTePropagate();
 
-	void FullVector_propagate_simple();
+	void fullVectorPropagateSimple();
 
 	// Order 0 = 1,0;
 	// Order 1 = 1,1;
@@ -84,14 +69,9 @@ public:
 	// Order 3 = 3,3;
 	// Order 4 = 4,4;
 	// Order 5 = 5,5;
-	void FullVector_WideAngle_propagate_simple(int order);
-
-
+	void fullVectorWideAnglePropagateSimple(int order=0);
 
 	void postData();
 
-
- 
-	
 };
 

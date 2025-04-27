@@ -1,6 +1,6 @@
 ﻿#include "dxdyfunc.h"
 
-sp_cx_mat dxdyfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, int ny, double dx, double dy)
+sp_cx_mat dxdyFunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, int ny, double dx, double dy)
 {
 
 	int ng = nx * ny;
@@ -27,7 +27,7 @@ sp_cx_mat dxdyfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, in
 	return s;
 }
 
-sp_cx_mat dxdyfunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, int ny, double dx, double dy, DiagStruct& diagv)
+sp_cx_mat dxdyFunc(const cx_vec& p, const cx_vec& q, const cx_vec& r, int nx, int ny, double dx, double dy, DiagStruct& diagv)
 {
 	int ng = nx * ny;
 
