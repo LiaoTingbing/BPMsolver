@@ -182,7 +182,30 @@ void Bpm::fullVectorPropagateSimple()
 
 void Bpm::fullVectorWideAnglePropagateSimple(int order)
 {
-	cout << "\t全矢量传播\t广角阶数\t"<<order<<"\n";
+	cout << "\t全矢量传播\t";
+	switch (order)
+	{
+	case 0:
+		cout << "广角阶数\t(1,0)\n";
+		break;
+	case 1:
+		cout << "广角阶数\t(1,1)\n";
+		break;
+	case 2:
+		cout << "广角阶数\t(2,2)\n";
+		break;
+	case 3:
+		cout << "广角阶数\t(3,3)\n";
+		break;
+	case 4:
+		cout << "广角阶数\t(4,4)\n";
+		break;
+	case 5:
+		cout << "广角阶数\t(5,5)\n";
+		break;
+	default:
+		break;
+	}
 
 	ex_.col(0) = vectorise((*dev_)["Exin"]) + 0.0 * IU;
 	ey_.col(0) = vectorise((*dev_)["Eyin"]) + 0.0 * IU;

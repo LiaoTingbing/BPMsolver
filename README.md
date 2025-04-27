@@ -45,3 +45,15 @@ h5文件里面的datasetname。
 ![alt text](images/fullvector/TMeymode.png)
 ![alt text](images/fullvector/TMeyresult.png)
 ### 广角全矢量
+
+实现三维全矢量广角传播，推荐使用（1，1）
+|Pade Order|
+|---|
+|1，0|
+|1，1|
+|2，2|
+|3，3|
+|4，4|
+|5，5|
+
+#### 广角模型

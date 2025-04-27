@@ -29,7 +29,7 @@ int main()
     bpm.computeMatrix();
     //bpm.FullVector_propagate_simple();
     //Pade 1，1最优
-    bpm.fullVectorWideAnglePropagateSimple(); // Pade 5,5
+    bpm.fullVectorWideAnglePropagateSimple(1); // Pade 5,5
     bpm.postData();
  
 
