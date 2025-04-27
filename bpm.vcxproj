@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="band_multi.cpp" />
-    <ClCompile Include="bpmClass.cpp" />
+    <ClCompile Include="bpm_class.cpp" />
     <ClCompile Include="cn_solve.h.cpp" />
     <ClCompile Include="dxdxfunc.cpp" />
     <ClCompile Include="dxdyfunc.cpp" />
