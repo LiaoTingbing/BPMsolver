@@ -1,4 +1,4 @@
-﻿# bpm
+﻿# BPM求解器
 
 ## 背景
 
@@ -49,11 +49,33 @@ h5文件里面的datasetname。
 实现三维全矢量广角传播，推荐使用（1，1）
 |Pade Order|
 |---|
-|1，0|
-|1，1|
-|2，2|
-|3，3|
-|4，4|
-|5，5|
+|(1,0)|
+|(1,1)|
+|(2,2)|
+|(3,3)|
+|(4,4)|
+|(5,5)|
 
 #### 广角模型
+![alt text](images/wideangle/wideanglestruct.png)
+#### 入射场
+![alt text](images/wideangle/wideangleincidentfield.png)
+#### Pade(1,0)结果
+![alt text](images/wideangle/wideanglepade10.png)
+#### Pade(1,1)结果
+![alt text](images/wideangle/wideanglepade11.png)
+#### Pade(2,2)结果
+![alt text](images/wideangle/wideanglepade22.png)
+#### Pade(3,3)结果
+![alt text](images/wideangle/wideanglepade33.png)
+#### Pade(4,4)结果
+![alt text](images/wideangle/wideanglepade44.png)
+#### Pade(5,5)结果
+![alt text](images/wideangle/wideanglepade55.png)
+
+## 结论
+建议使用(1,0)或者(1,1)
+
+## 后续
+觉得哟意思点个赞
+😝 😋🍽️ 🐶🐕🐕‍🦺🦮🐩 😉 💪
