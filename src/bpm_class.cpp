@@ -1,4 +1,4 @@
-﻿#include "bpm_class.h"
+﻿#include "../include/bpm_class.h"
 
 void Bpm::init()
 {
@@ -209,6 +209,8 @@ void Bpm::fullVectorWideAnglePropagateSimple(int order)
 
 	ex_.col(0) = vectorise((*dev_)["Exin"]) + 0.0 * IU;
 	ey_.col(0) = vectorise((*dev_)["Eyin"]) + 0.0 * IU;
+
+	//n0_ = 6.597344573e6;
 
 	clock_t t1 = clock();
 	cx_vec coffUp = NN(order) - IU * n0_ * k0_ * dz_ * (1 - alpha_) * MN(order);

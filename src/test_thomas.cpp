@@ -1,8 +1,8 @@
 ﻿
-#include "common.h"
+#include "../include/common.h"
 
 //#include "BPM.h"
-#include "thomas.h"
+#include "../include/thomas.h"
 
 
 

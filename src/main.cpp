@@ -1,9 +1,9 @@
 ﻿// bpm20250421.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "common.h"
-#include "load_hdf5.h"
-#include "bpm_class.h"
+#include "../include/common.h"
+#include "../include/load_hdf5.h"
+#include "../include/bpm_class.h"
 
 int main()
 {
@@ -29,7 +29,7 @@ int main()
     bpm.computeMatrix();
     //bpm.FullVector_propagate_simple();
     //Pade 1，1最优
-    bpm.fullVectorWideAnglePropagateSimple(5); // Pade 5,5
+    bpm.fullVectorWideAnglePropagateSimple(); // Pade 5,5
     bpm.postData();
  
 

@@ -15,69 +15,69 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="loadHDF5.cpp">
+    <ClCompile Include="src\band_multi.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="BPM.cpp">
+    <ClCompile Include="src\bpm_class.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dxdxfunc.cpp">
+    <ClCompile Include="src\cn_solve.h.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dydyfunc.cpp">
+    <ClCompile Include="src\dxdxfunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="thomas.cpp">
+    <ClCompile Include="src\dxdyfunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CNsolve.cpp">
+    <ClCompile Include="src\dydxfunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dxdyfunc.cpp">
+    <ClCompile Include="src\dydyfunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dydxfunc.cpp">
+    <ClCompile Include="src\load_hdf5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="源.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="bandMulti.cpp">
+    <ClCompile Include="src\test_thomas.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\thomas.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="loadHDF5.h">
+    <ClInclude Include="include\band_multi.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
+    <ClInclude Include="include\bpm_class.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="BPM.h">
+    <ClInclude Include="include\cn_solve.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="dxdxfunc.h">
+    <ClInclude Include="include\common.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="dydyfunc.h">
+    <ClInclude Include="include\dxdxfunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="thomas.h">
+    <ClInclude Include="include\dxdyfunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CNsolve.h">
+    <ClInclude Include="include\dydxfunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="dxdyfunc.h">
+    <ClInclude Include="include\dydyfunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="dydxfunc.h">
+    <ClInclude Include="include\load_hdf5.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="bandMulti.h">
+    <ClInclude Include="include\thomas.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

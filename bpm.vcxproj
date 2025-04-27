@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\band_multi.cpp" />
+    <ClCompile Include="src\bpm_class.cpp" />
+    <ClCompile Include="src\cn_solve.h.cpp" />
+    <ClCompile Include="src\dxdxfunc.cpp" />
+    <ClCompile Include="src\dxdyfunc.cpp" />
+    <ClCompile Include="src\dydxfunc.cpp" />
+    <ClCompile Include="src\dydyfunc.cpp" />
+    <ClCompile Include="src\load_hdf5.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\test_thomas.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\thomas.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\band_multi.h" />
+    <ClInclude Include="include\bpm_class.h" />
+    <ClInclude Include="include\cn_solve.h" />
+    <ClInclude Include="include\common.h" />
+    <ClInclude Include="include\dxdxfunc.h" />
+    <ClInclude Include="include\dxdyfunc.h" />
+    <ClInclude Include="include\dydxfunc.h" />
+    <ClInclude Include="include\dydyfunc.h" />
+    <ClInclude Include="include\load_hdf5.h" />
+    <ClInclude Include="include\thomas.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -133,36 +160,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="band_multi.cpp" />
-    <ClCompile Include="bpm_class.cpp" />
-    <ClCompile Include="cn_solve.h.cpp" />
-    <ClCompile Include="dxdxfunc.cpp" />
-    <ClCompile Include="dxdyfunc.cpp" />
-    <ClCompile Include="dydxfunc.cpp" />
-    <ClCompile Include="dydyfunc.cpp" />
-    <ClCompile Include="load_hdf5.cpp" />
-    <ClCompile Include="main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="thomas.cpp" />
-    <ClCompile Include="test_thomas.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="band_multi.h" />
-    <ClInclude Include="bpm_class.h" />
-    <ClInclude Include="cn_solve.h" />
-    <ClInclude Include="common.h" />
-    <ClInclude Include="dxdxfunc.h" />
-    <ClInclude Include="dxdyfunc.h" />
-    <ClInclude Include="dydxfunc.h" />
-    <ClInclude Include="dydyfunc.h" />
-    <ClInclude Include="load_hdf5.h" />
-    <ClInclude Include="thomas.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

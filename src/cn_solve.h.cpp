@@ -1,4 +1,4 @@
-﻿#include "cn_solve.h"
+﻿#include "../include/cn_solve.h"
 
 cx_vec thomasSolve(const DiagStruct& A, const cx_vec& y)
 {

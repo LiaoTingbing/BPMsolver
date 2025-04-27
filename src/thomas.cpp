@@ -1,4 +1,4 @@
-﻿#include "thomas.h"
+﻿#include "../include/thomas.h"
 
 cx_vec thomasAlgorithm(const cx_vec& a, const cx_vec& b, const cx_vec& c, const cx_vec& d)
 {

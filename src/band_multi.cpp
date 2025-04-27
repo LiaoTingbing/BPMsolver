@@ -1,4 +1,6 @@
-﻿#include "band_multi.h"
+﻿//#include "band_multi.h"
+#include "../include/band_multi.h"
+
 
 cx_vec triMulti(const cx_vec& a, const cx_vec& b, const cx_vec& c, int q, const cx_vec& x)
 {

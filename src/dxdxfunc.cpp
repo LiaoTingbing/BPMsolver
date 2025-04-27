@@ -1,4 +1,4 @@
-﻿#include "dxdxfunc.h"
+﻿#include "../include/dxdxfunc.h"
 
 sp_cx_mat dxdxFunc(const cx_vec& p, const cx_vec& q, const cx_vec& r,
 	int nx, int ny,
