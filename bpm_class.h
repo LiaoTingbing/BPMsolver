@@ -53,8 +53,10 @@ public:
 	
 	void init();
 
+	// BPM PML层数 默认10层
 	void computePML(int layersPML = 10);      // 计算PML参数
 
+	// 计算Ax Bx Ay By C D
 	void computeMatrix();
  
 	void qusiTmPropagate();
@@ -71,6 +73,7 @@ public:
 	// Order 5 = 5,5;
 	void fullVectorWideAnglePropagateSimple(int order=0);
 
+	// 存储数据
 	void postData();
 
 };

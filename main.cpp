@@ -5,15 +5,11 @@
 #include "load_hdf5.h"
 #include "bpm.h"
 
-
-
 int main()
 {
     //omp_set_num_threads(6);
-    //test();
 
     string filePathRosft = "matlab/rsoft.h5";
-
 
     field<string> rosft = {
     "x", "y", "z", 
@@ -26,7 +22,6 @@ int main()
  
     loadData(dev, filePathRosft, rosft);
  
-
 	Bpm bpm(&dev);
 
     bpm.init();
