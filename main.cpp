@@ -3,7 +3,7 @@
 
 #include "common.h"
 #include "load_hdf5.h"
-#include "bpm.h"
+#include "bpm_class.h"
 
 int main()
 {

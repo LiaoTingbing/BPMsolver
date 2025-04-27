@@ -1,4 +1,4 @@
-﻿#include "BPM.h"
+﻿#include "bpm_class.h"
 
 void Bpm::init()
 {
