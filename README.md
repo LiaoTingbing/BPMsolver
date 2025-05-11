@@ -16,13 +16,15 @@
 ##  原理
 
 各向异性材料
+
 $$
-\boldsymbol{\varepsilon}=\begin{pmatrix}
-\varepsilon_{xx}&\varepsilon_{xy}&0\\
-\varepsilon_{yx}&\varepsilon_{yy}&0\\
-0&0&\varepsilon_{zz}
-\end{pmatrix}
+\begin{bmatrix}
+ \varepsilon _{xx} &\varepsilon _{xy}  & 0 \\
+   \varepsilon _{yx}& \varepsilon _{yy} & 0\\
+ 0 & 0 &\varepsilon _{zz}
+\end{bmatrix}
 $$
+
 
 假设光线沿着Z轴传播
 
